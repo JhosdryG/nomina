@@ -25,7 +25,7 @@
 
 <body>
     <div class="nav_container">
-        <nav class="nav" id="menuNormal">
+    <nav class="nav" id="menuNormal">
             <div class="container">
                 <div class="main_nav_buttons">
                     <div class="menu_icon nav_buttons" id="menu_button">
@@ -34,11 +34,18 @@
                     </div>
                     
                 </div>
-                <div class="nav_buttons options">
-                    <a href="departments.php" class="icon_link active"><i class="fas fa-sitemap active"></i><span class="icon_text">Productos</span></a>
+
+                <div class="menu-center">
+                    <div class="nav_buttons options">
+                        <a href="admin.php" class="icon_link building"><i class="fas fa-building"></i><span class="icon_text">Empresas</span></a>
+                    </div>
+                    <div class="nav_buttons options">
+                        <a href="departments.php" class="icon_link active"><i class="fas fa-sitemap active"></i><span class="icon_text">Departamentos</span></a>
+                    </div>
                 </div>
+
                 <div class="logout_button nav_buttons">
-                    <a href="/admin/logout" class="icon_link"><i class="fas fa-door-open"></i><span class="icon_text">Salir</span></a>
+                    <a href="/index.php" class="icon_link"><i class="fas fa-door-open"></i><span class="icon_text">Salir</span></a>
                 </div>
             </div>
         </nav>
