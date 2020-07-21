@@ -7,13 +7,22 @@
     $errormsg = "";
     $insert_id = "";
 
+    $id_enterprise = $_SESSION['enterprise'];
+
     if(isset($_POST['add'])){
         
-        if(isset($_POST['name'])){
+        if(
+            isset($_POST['name']) &&
+            isset($_POST['weekhours']) &&
+            isset($_POST['price_hour'])
+        ){
             $name = $_POST['name']; 
-            $enterprise = $_SESSION['enterprise'];
+            $weekhours = $_POST['weekhours']; 
+            $price_hour = $_POST['price_hour']; 
 
-            $query = "INSERT INTO department(name,enterprise_id) VALUES ('$name',$enterprise);";
+            $department = $_SESSION['department'];
+
+            $query = "INSERT INTO job(name, weekhours ,price_hour, department_id) VALUES ('$name',$weekhours, $price_hour, $department);";
 
             $result = $conn->query($query);
 
@@ -22,7 +31,7 @@
                 $insert_id = $conn->insert_id;
             }else{
                 if(mysqli_errno($conn) == 1062){
-                    $errormsg = "YA EXISTE UN DEPARTAMENTO CON ESE NOMBRE";
+                    $errormsg = "YA EXISTE UN CARGO CON ESE NOMBRE";
                 }else{
                     $errormsg = "HA OCURRIDO UN ERROR INESPERADO " . mysqli_error($conn);
                 }
@@ -54,7 +63,7 @@
     <!-- {{!-- My Styles --}} -->
     <link rel="stylesheet" href="css/admin.min.css">
     <link rel="stylesheet" href="css/add_product.min.css">
-
+    <link rel="stylesheet" href="css/msgportal.min.css">
     </body>
 </head>
 
@@ -75,7 +84,7 @@
                         <a href="admin.php" class="icon_link building"><i class="fas fa-building"></i><span class="icon_text">Empresas</span></a>
                     </div>
                     <div class="nav_buttons options">
-                        <a href="departments.php" class="icon_link"><i class="fas fa-sitemap"></i><span class="icon_text">Departamentos</span></a>
+                        <a href="departments.php?enterprise=<?php echo $id_enterprise ?>" class="icon_link"><i class="fas fa-sitemap"></i><span class="icon_text">Departamentos</span></a>
                     </div>
                     <div class="nav_buttons options">
                         <a href="jobs.php" class="icon_link active building"><i class="fas fa-briefcase active"></i><span class="icon_text">Cargos</span></a>
@@ -107,38 +116,66 @@
     <main class="main">
         <div class="container">
 
-            <form class="form">
+            <form class="form" method="POST" action="addJob.php">
 
                 <div class="form_section section_form">
                     <div class="form_group">
                         <label for="" class="form_group_label">
                             Nombre
                         </label>
-                        <input id="title" type="text" name="title" value="" />
+                        <input id="title" type="text" name="name" value="" />
                     </div>
                     <div class="form_group section_form">
                         <label for="" class="form_group_label">
                             Horas Semanales
                         </label>
-                        <input id="detailPrice" type="number" name="detailPrice" value="" />
+                        <input id="detailPrice" type="number" name="weekhours" value="" />
                     </div>
                     <div class="form_group section_form">
                         <label for="" class="form_group_label">
                             Precio De La Hora
                         </label>
-                        <input id="bigPrice" type="number" name="bigPrice" value="" />
+                        <input id="bigPrice" type="number" name="price_hour" value="" />
                     </div>
                 </div>
 
                 <div class="button_group form_section">
 
-                    <input type="button" onclick="onSubmit" value="Agregar" class="button button_add" />
+                    <input type="submit" name="add" value="Agregar" class="button button_add" />
                     <a href="jobs.php" class="button button_back">Volver</a>
                 </div>
             </form>
         </div>
     </main>
+    <?php 
+        if($created){ ?>
+            <div class="portal">
+                <div class="portal_box">
+                    <p class="portal_box_title">
+                        Cargo creado satisfactoriamente
+                    </p>
+                    <a href="jobs.php?department=<?php echo $department ?>" class="portal_box_btn">Aceptar</a>
+                </div>
+            </div>
+    <?php }else if($error){ ?>
+
+        <div class="portal" id="errorportal">
+                <div class="portal_box">
+                    <p class="portal_box_title">
+                        <?php echo $errormsg ?>
+                    </p>
+                    <button id="closeportal" class="portal_box_btn">Aceptar</button>
+                </div>
+            </div>
+
+    <?php } ?>
     <script src="scripts/adminMenu.js"></script>
+    <script>
+        let portal = document.getElementById("errorportal");
+        let btn = document.getElementById("closeportal").addEventListener('click',()=>{
+            portal.classList.toggle("hide");
+        });
+    </script>
 </body>
 
 </html>
