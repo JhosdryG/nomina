@@ -2,8 +2,32 @@
     include("validateRoute.php"); 
     include("db.php");
 
-    if(isset($_POST['add'])){
+    $created = false;
+    $error = false;
 
+    if(isset($_POST['add'])){
+        if(
+            isset($_POST['name']) && 
+            isset($_POST['rif']) && 
+            isset($_POST['dir']) && 
+            isset($_POST['phone']) && 
+            isset($_POST['risk'])
+        ){
+            $name = $_POST['name']; 
+            $rif = $_POST['rif']; 
+            $dir = $_POST['dir']; 
+            $phone = $_POST['phone']; 
+            $risk = $_POST['risk'];
+
+            $query = "CALL add_enterprise($name,$rif,$dir,$phone,$risk)";
+            $result = $conn->query($query) or die('Error: ' . mysqli_error($conn));
+
+            if($result){
+                $created = true;
+            }else{
+                $error = true;
+            }
+        }
     }
 
 
@@ -80,29 +104,29 @@
                         <label for="" class="form_group_label">
                             Rif
                         </label>
-                        <input id="detailPrice" type="text" name="rif" value=""/>
+                        <div class="rif">
+                            <select name="rif_l" id="riesgo">
+                                <option value="0.09">9%</option>
+                                <option value="0.10">10%</option>
+                                <option value="0.11">11%</option>
+                            </select>
+                            <input id="detailPrice" type="number" name="rif_n" value=""/>
+                        </div>
                     </div>
                     <div class="form_group">
                         <label for="" class="form_group_label">
                             Teléfono
                         </label>
-                        <input id="bigPrice" type="text" name="phone" value=""/>
+                        <input id="bigPrice" type="number" name="phone" value=""/>
                     </div>
                     <div class="form_group">
                         <label for="riesgo" class="form_group_label">
                             Porcentaje de riesgo
                         </label>
-<<<<<<< HEAD
                         <select name="risk" id="riesgo">
-                            <option value="nine">9%</option>
-                            <option value="ten">10%</option>
-                            <option value="eleven">11%</option>
-=======
-                        <select name="" id="riesgo">
                             <option value="0.09">9%</option>
                             <option value="0.10">10%</option>
                             <option value="0.11">11%</option>
->>>>>>> ab29b86b37d0f6f1cc2d60061896b80a6cc17c23
                         </select>
                     </div>
                 </div>
@@ -115,6 +139,17 @@
             </form>
         </div>
     </main>
+
+    <?php 
+        if($created){ ?>
+            <p>Creado satisfactoriamente </p>
+    <?php }else if($error){ ?>
+
+        <p>Ocurrió un error</p>
+
+    <?php } ?>
+    
+
     <script src="scripts/adminMenu.js"></script>
 </body>
 
