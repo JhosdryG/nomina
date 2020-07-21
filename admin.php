@@ -38,7 +38,7 @@
 
                 </div>
                 <div class="nav_buttons options">
-                    <a href="empresas.php" class="icon_link active building"><i class="fas fa-building active"></i><span class="icon_text">Productos</span></a>
+                    <a href="empresas.php" class="icon_link active building"><i class="fas fa-building active"></i><span class="icon_text active">Empresas</span></a>
                 </div>
                 <div class="logout_button nav_buttons">
                     <a href="logout.php" class="icon_link"><i class="fas fa-door-open"></i><span class="icon_text">Salir</span></a>

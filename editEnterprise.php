@@ -84,7 +84,7 @@
                     
                 </div>
                 <div class="nav_buttons options">
-                    <a href="admin.php" class="icon_link active building"><i class="fas fa-building active"></i><span class="icon_text">Productos</span></a>
+                    <a href="admin.php" class="icon_link active building"><i class="fas fa-building active"></i><span class="icon_text active">Empresas</span></a>
                 </div>
                 <div class="logout_button nav_buttons">
                     <a href="/admin/logout" class="icon_link"><i class="fas fa-door-open"></i><span class="icon_text">Salir</span></a>
@@ -154,7 +154,7 @@
                     </div>
                 </div>
                 
-                <div class="button_group form_section">
+                <div class="button_group button_group_update form_section">
                     <input type="submit" value="Agregar" class="button button_add" name="add" />
                     <a href="admin.php" class="button button_back">Volver</a>
                     <a href="admin.php" class="button button_delete">Eliminar</a>

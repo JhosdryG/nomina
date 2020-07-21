@@ -78,7 +78,13 @@
                         <a href="admin.php" class="icon_link building"><i class="fas fa-building"></i><span class="icon_text">Empresas</span></a>
                     </div>
                     <div class="nav_buttons options">
-                        <a href="departments.php" class="icon_link active"><i class="fas fa-sitemap active"></i><span class="icon_text">Departamentos</span></a>
+                        <a href="departments.php" class="icon_link active"><i class="fas fa-sitemap active"></i><span class="icon_text active">Departamentos</span></a>
+                    </div>
+                    <div class="nav_buttons options">
+                        <a href="concepts.php" class="icon_link"><i class="fas fa-money-check"></i><span class="icon_text">Conceptos De Pago</span></a>
+                    </div>
+                    <div class="nav_buttons options">
+                        <a href="payroll.php" class="icon_link"><i class="fas fa-money-check-alt"></i><span class="icon_text">Nómina</span></a>
                     </div>
                 </div>
 
@@ -90,6 +96,8 @@
         <div class="alternative-menu" id="alternative-menu">
             <a href="admin.php" class="menu_link"><i class="fas fa-building"></i><span class="icon_text_alternative">Empresas</span></a>
             <a href="departments.php" class="menu_link"><i class="fas fa-sitemap"></i> <span class="icon_text_alternative">Departamentos</span></a>
+            <a href="concepts.php" class="menu_link"><i class="fas fa-money-check"></i><span class="icon_text_alternative">Conceptos De Pago</span></a>
+            <a href="payroll.php" class="menu_link"><i class="fas fa-money-check-alt"></i><span class="icon_text_alternative">Nómina</span></a>
         </div>
     </div>
 
