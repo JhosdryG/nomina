@@ -42,7 +42,7 @@ main
                 margin: 0
                 margin-bottom: 15px 
 
-        & [type="text"], [type="number"]
+        & [type="text"], [type="number"], [type="date"]
             padding: 6px
             font-size: 1rem
             color: $dark
@@ -78,14 +78,10 @@ main
         
         @include tablet()
             grid-area: buttons
-            grid-template-columns: repeat(2, 1fr)
+            grid-template-columns: repeat(3, 1fr)
             justify-content: center
             grid-gap: 20px
             padding: 20px 100px
-
-            &.update
-                grid-template-columns: repeat(3, 1fr)
-                justify-content: center
 
         .button
             display: inline-block
@@ -107,6 +103,9 @@ main
                 
             &_back
                 background-color: $primary-light
+            
+            &_delete
+                background-color: #e93731
 
 #smallImage
     display: none

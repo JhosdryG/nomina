@@ -37,10 +37,10 @@
                         <a href="departments.php" class="icon_link"><i class="fas fa-sitemap"></i><span class="icon_text">Departamentos</span></a>
                     </div>
                     <div class="nav_buttons options">
-                        <a href="jobs.php" class="icon_link active building"><i class="fas fa-briefcase active"></i><span class="icon_text">Cargos</span></a>
+                        <a href="jobs.php" class="icon_link  building"><i class="fas fa-briefcase"></i><span class="icon_text">Cargos</span></a>
                     </div>
                     <div class="nav_buttons options">
-                        <a href="employees.php" class="icon_link"><i class="fas fa-users"></i><span class="icon_text">Empleados</span></a>
+                        <a href="employees.php" class="icon_link active"><i class="fas fa-users active"></i><span class="icon_text">Empleados</span></a>
                     </div>
                 </div>
 
@@ -61,40 +61,40 @@
         <div class="container">
             <div class="dpt-name">
                 <h2 class="enterprise">Departamento de Informática</h1>
-                    <h2 class="department">Cargos</h2>
+                    <h2 class="department">Empleados</h2>
             </div>
-            <a id="addProduct" href="addJob.php"><i class="fas fa-plus"></i> Agregar Cargo</a>
+            <a id="addProduct" href="addEmployee.php"><i class="fas fa-plus"></i> Agregar Empleado</a>
         </div>
     </header>
 
     <main class="main">
         <!-- <h2>
-            Pulsa "Agregar Departamento"
+            Pulsa "Agregar Empleado"
         </h2> -->
 
         <div class="container">
 
             <ul class="products_list">
-                <a href="jobs.php">
+                <a href="employees.php">
                     <li class="product" onclick="location.href='/admin/product/{{@key}}?{{{../pass}}}={{{../urlHash}}}'">
                         <div class="product_imgbox">
 
-                            <i class="product_imgbox_img fas fa-briefcase"></i>
+                            <i class="product_imgbox_img fas fa-users"></i>
 
                         </div>
                         <div class="product_info">
                             <div class="product_info_titlebox">
                                 <h3 class="product_info_titlebox_title">
-                                    Programador
+                                    Alejandro Gonzalez
                                 </h3>
                                 <div class="product_info_titlebox_price">
-                                    10 Empleados
+                                    V-27849217
                                 </div>
                                 <div class="product_info_titlebox_price">
-                                    36 Horas Semanales
+                                    Ingresó 10-10-2000
                                 </div>
                                 <div class="product_info_titlebox_price">
-                                    80000 Bs Por Hora
+                                    Programador
                                 </div>
                             </div>
                         </div>

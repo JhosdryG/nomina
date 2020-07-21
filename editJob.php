@@ -20,19 +20,19 @@
     <link rel="stylesheet" href="css/admin.min.css">
     <link rel="stylesheet" href="css/add_product.min.css">
 
-</body>
+    </body>
 </head>
 
 <body>
     <div class="nav_container">
-    <nav class="nav" id="menuNormal">
+        <nav class="nav" id="menuNormal">
             <div class="container">
                 <div class="main_nav_buttons">
                     <div class="menu_icon nav_buttons" id="menu_button">
-                        <i class="fas fa-bars" ></i>
+                        <i class="fas fa-bars"></i>
                         <span class="icon_text">Menu</span>
                     </div>
-                    
+
                 </div>
 
                 <div class="menu-center">
@@ -40,24 +40,32 @@
                         <a href="admin.php" class="icon_link building"><i class="fas fa-building"></i><span class="icon_text">Empresas</span></a>
                     </div>
                     <div class="nav_buttons options">
-                        <a href="departments.php" class="icon_link active"><i class="fas fa-sitemap active"></i><span class="icon_text">Departamentos</span></a>
+                        <a href="departments.php" class="icon_link"><i class="fas fa-sitemap"></i><span class="icon_text">Departamentos</span></a>
+                    </div>
+                    <div class="nav_buttons options">
+                        <a href="jobs.php" class="icon_link active building"><i class="fas fa-briefcase active"></i><span class="icon_text">Cargos</span></a>
+                    </div>
+                    <div class="nav_buttons options">
+                        <a href="employees.php" class="icon_link"><i class="fas fa-users"></i><span class="icon_text">Empleados</span></a>
                     </div>
                 </div>
 
                 <div class="logout_button nav_buttons">
-                    <a href="/index.php" class="icon_link"><i class="fas fa-door-open"></i><span class="icon_text">Salir</span></a>
+                    <a href="index.php" class="icon_link"><i class="fas fa-door-open"></i><span class="icon_text">Salir</span></a>
                 </div>
             </div>
         </nav>
         <div class="alternative-menu" id="alternative-menu">
             <a href="admin.php" class="menu_link"><i class="fas fa-building"></i><span class="icon_text_alternative">Empresas</span></a>
             <a href="departments.php" class="menu_link"><i class="fas fa-sitemap"></i> <span class="icon_text_alternative">Departamentos</span></a>
+            <a href="jobs.php" class="menu_link"><i class="fas fa-briefcase"></i><span class="icon_text_alternative">Cargos</span></a>
+            <a href="employees.php" class="menu_link "><i class="fas fa-users "></i><span class="icon_text_alternative">Empleados</span></a>
         </div>
     </div>
 
     <header class="header">
         <div class="container">
-            <h2>Agregar Departamento</h2>
+            <h2>Agregar Cargo</h2>
         </div>
     </header>
 
@@ -65,20 +73,33 @@
         <div class="container">
 
             <form class="form">
-               
+
                 <div class="form_section section_form">
                     <div class="form_group">
                         <label for="" class="form_group_label">
                             Nombre
                         </label>
-                        <input id="title" type="text" name="title" value=""/>
+                        <input id="title" type="text" name="title" value="" />
+                    </div>
+                    <div class="form_group section_form">
+                        <label for="" class="form_group_label">
+                            Horas Semanales
+                        </label>
+                        <input id="detailPrice" type="number" name="detailPrice" value="" />
+                    </div>
+                    <div class="form_group section_form">
+                        <label for="" class="form_group_label">
+                            Precio De La Hora
+                        </label>
+                        <input id="bigPrice" type="number" name="bigPrice" value="" />
                     </div>
                 </div>
-                
+
                 <div class="button_group form_section">
 
-                    <input type="button" onclick="onSubmit" value="Agregar" class="button button_add"/>
-                    <a href="departments.php" class="button button_back">Volver</a>
+                    <input type="button" onclick="onSubmit" value="Agregar" class="button button_add" />
+                    <a href="jobs.php" class="button button_back">Volver</a>
+                    <a href="admin.php" class="button button_delete">Eliminar</a>
                 </div>
             </form>
         </div>

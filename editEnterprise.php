@@ -98,7 +98,7 @@
 
     <header class="header">
         <div class="container">
-            <h2>Agregar Empresa</h2>
+            <h2>Editar Empresa</h2>
         </div>
     </header>
 
@@ -155,9 +155,9 @@
                 </div>
                 
                 <div class="button_group form_section">
-
                     <input type="submit" value="Agregar" class="button button_add" name="add" />
                     <a href="admin.php" class="button button_back">Volver</a>
+                    <a href="admin.php" class="button button_delete">Eliminar</a>
                 </div>
             </form>
         </div>

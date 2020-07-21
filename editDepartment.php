@@ -76,9 +76,9 @@
                 </div>
                 
                 <div class="button_group form_section">
-
                     <input type="button" onclick="onSubmit" value="Agregar" class="button button_add"/>
                     <a href="departments.php" class="button button_back">Volver</a>
+                    <a href="admin.php" class="button button_delete">Eliminar</a>
                 </div>
             </form>
         </div>
