@@ -1,3 +1,13 @@
+<?php 
+    include("validateRoute.php"); 
+    include("db.php");
+
+    if(isset($_POST['add'])){
+
+    }
+
+
+?>
 <!DOCTYPE html>
 <html lang="es">
 
@@ -56,33 +66,33 @@
     <main class="main">
         <div class="container">
 
-            <form class="form">
+            <form class="form" method="POST" action="addEnterprise.php">
                
                 <div class="form_section section_form">
                     <div class="form_group">
                         <label for="" class="form_group_label">
                             Nombre
                         </label>
-                        <input id="title" type="text" name="title" value=""/>
+                        <input id="title" type="text" name="name" value=""/>
                     </div>
 
                     <div class="form_group section_form">
                         <label for="" class="form_group_label">
                             Rif
                         </label>
-                        <input id="detailPrice" type="text" name="detailPrice" value=""/>
+                        <input id="detailPrice" type="text" name="rif" value=""/>
                     </div>
                     <div class="form_group">
                         <label for="" class="form_group_label">
                             Teléfono
                         </label>
-                        <input id="bigPrice" type="text" name="bigPrice" value=""/>
+                        <input id="bigPrice" type="text" name="phone" value=""/>
                     </div>
                     <div class="form_group">
                         <label for="riesgo" class="form_group_label">
                             Porcentaje de riesgo
                         </label>
-                        <select name="" id="riesgo">
+                        <select name="risk" id="riesgo">
                             <option value="nine">9%</option>
                             <option value="ten">10%</option>
                             <option value="eleven">11%</option>
@@ -92,7 +102,7 @@
                 
                 <div class="button_group form_section">
 
-                    <input type="button" onclick="onSubmit" value="Agregar" class="button button_add"/>
+                    <input type="button" onclick="onSubmit" value="Agregar" class="button button_add" name="add"/>
                     <a href="admin.php" class="button button_back">Volver</a>
                 </div>
             </form>
