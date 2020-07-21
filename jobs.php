@@ -1,3 +1,29 @@
+<?php 
+    include("validateRoute.php"); 
+    include("db.php");
+
+    $departmentName = "";
+    $id_enterprise = "";
+    if(isset($_GET['department'])){
+        $_SESSION['department'] = $_GET['department'];
+        $id_enterprise = $_SESSION['enterprise'];
+        $id = $_GET['department'];
+        $query = "SELECT * FROM job where department_id = $id";
+        $result = $conn->query($query);
+
+        $query2 = "SELECT name FROM department where id = $id";
+        $result2 = $conn->query($query2);
+
+        if ($result2->num_rows > 0) {
+            // output data of each row
+            $row = $result2->fetch_assoc();
+            $departmentName = $row['name'];
+
+        }
+    }else{
+        header("Location: admin.php");
+    }
+?>
 <!DOCTYPE html>
 <html lang="es">
 
@@ -34,7 +60,7 @@
                         <a href="admin.php" class="icon_link building"><i class="fas fa-building"></i><span class="icon_text">Empresas</span></a>
                     </div>
                     <div class="nav_buttons options">
-                        <a href="departments.php" class="icon_link"><i class="fas fa-sitemap"></i><span class="icon_text">Departamentos</span></a>
+                        <a href="departments.php?enterprise=<?php echo $id_enterprise ?>" class="icon_link"><i class="fas fa-sitemap"></i><span class="icon_text">Departamentos</span></a>
                     </div>
                     <div class="nav_buttons options">
                         <a href="jobs.php" class="icon_link active building"><i class="fas fa-briefcase active"></i><span class="icon_text active">Cargos</span></a>
@@ -68,7 +94,7 @@
     <header class="header">
         <div class="container">
             <div class="dpt-name">
-                <h2 class="enterprise">Departamento de Informática</h1>
+                <h2 class="enterprise">Departamento de <?php echo $departmentName ?></h1>
                     <h2 class="department">Cargos</h2>
             </div>
             <a id="addProduct" href="addJob.php"><i class="fas fa-plus"></i> Agregar Cargo</a>
@@ -83,32 +109,40 @@
         <div class="container">
 
             <ul class="products_list">
-                <a href="jobs.php">
-                    <li class="product" onclick="location.href='/admin/product/{{@key}}?{{{../pass}}}={{{../urlHash}}}'">
-                        <div class="product_imgbox">
 
+
+
+            <?php 
+                if ($result->num_rows > 0) {
+                    // output data of each row
+                    while($row = $result->fetch_assoc()) { ?>
+                        <li class="product" onclick="location.href='editJob.php?job=<?php echo $row['id'] ?>'">
+                            <div class="product_imgbox">
                             <i class="product_imgbox_img fas fa-briefcase"></i>
-
-                        </div>
-                        <div class="product_info">
-                            <div class="product_info_titlebox">
-                                <h3 class="product_info_titlebox_title">
-                                    Programador
-                                </h3>
-                                <div class="product_info_titlebox_price">
-                                    10 Empleados
-                                </div>
-                                <div class="product_info_titlebox_price">
-                                    36 Horas Semanales
-                                </div>
-                                <div class="product_info_titlebox_price">
-                                    80000 Bs Por Hora
+                            </div>
+                            <div class="product_info">
+                                <div class="product_info_titlebox">
+                                    <h3 class="product_info_titlebox_title">
+                                        <?php echo $row['name'] ?>
+                                    </h3>
+                                    <div class="product_info_titlebox_price">
+                                        <?php echo $row['weekhours'] ?> Horas Semanales
+                                    </div>
+                                    <div class="product_info_titlebox_price">
+                                    <?php echo $row['price_hour'] ?> Bs Por Hora
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    </li>
-                </a>
-            </ul>
+                        </li>
+                    
+                    <?php }
+                    echo "</ul>";
+                } else {
+                    echo "</ul>";
+                    echo "<h2>No se han encontrado resultados</h2>";
+                } ?>
+
+
 
         </div>
 

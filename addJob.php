@@ -1,3 +1,38 @@
+<?php 
+    include("validateRoute.php"); 
+    include("db.php");
+
+    $created = false;
+    $error = false;
+    $errormsg = "";
+    $insert_id = "";
+
+    if(isset($_POST['add'])){
+        
+        if(isset($_POST['name'])){
+            $name = $_POST['name']; 
+            $enterprise = $_SESSION['enterprise'];
+
+            $query = "INSERT INTO department(name,enterprise_id) VALUES ('$name',$enterprise);";
+
+            $result = $conn->query($query);
+
+            if($result){
+                $created = true;
+                $insert_id = $conn->insert_id;
+            }else{
+                if(mysqli_errno($conn) == 1062){
+                    $errormsg = "YA EXISTE UN DEPARTAMENTO CON ESE NOMBRE";
+                }else{
+                    $errormsg = "HA OCURRIDO UN ERROR INESPERADO " . mysqli_error($conn);
+                }
+
+                $error = true;
+            }
+        }
+    }
+
+?>
 <!DOCTYPE html>
 <html lang="es">
 
