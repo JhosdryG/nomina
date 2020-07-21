@@ -2,11 +2,25 @@
     include("validateRoute.php"); 
     include("db.php");
 
+    $enterpriseName = "";
+
     if(isset($_GET['enterprise'])){
         $_SESSION['enterprise'] = $_GET['enterprise'];
         $id = $_GET['enterprise'];
         $query = "SELECT * FROM department where enterprise_id = $id";
         $result = $conn->query($query);
+
+        $query2 = "SELECT name FROM enterprise where id = $id";
+        $result2 = $conn->query($query2);
+
+        if ($result2->num_rows > 0) {
+            // output data of each row
+            $row = $result2->fetch_assoc();
+            $enterpriseName = $row['name'];
+
+        }
+    }else{
+        header("Location: admin.php");
     }
 ?>
 <!DOCTYPE html>
@@ -63,7 +77,7 @@
     <header class="header">
         <div class="container">
             <div class="dpt-name">
-                <h2 class="enterprise">Devsktop</h1>
+                <h2 class="enterprise"><?php echo $enterpriseName ?></h1>
                     <h2 class="department">Departamentos</h2>
             </div>
             <a id="addProduct" href="addDepartment.php"><i class="fas fa-plus"></i> Agregar Departamento</a>
@@ -96,10 +110,12 @@
                                 </div>
                             </div>
                         </li>
+                    
                     <?php }
+                    echo "</ul>";
                 } else {
                     echo "</ul>";
-                    echo "<p>No se han encontrado resultados</p>";
+                    echo "<h2>No se han encontrado resultados</h2>";
                 } ?>
 
         </div>

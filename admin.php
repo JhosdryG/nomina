@@ -85,10 +85,12 @@
                                 </div>
                             </div>
                         </li>
+                    
                     <?php }
+                    echo "</ul>";
                 } else {
                     echo "</ul>";
-                    echo "<p>No se han encontrado resultados</p>";
+                    echo "<h2>No se han encontrado resultados</h2>";
                 }
                 ?>
                 
