@@ -6,14 +6,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Admin</title>
+    <!-- {{!-- Firebase scripts --}} -->
+    <script src="https://www.gstatic.com/firebasejs/6.2.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/6.2.0/firebase-storage.js"></script>
     <!-- {{!-- Google fonts Roboto --}} -->
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
     <!-- {{!-- Font Awesome CDN --}} -->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.13.0/css/solid.css" integrity="sha384-fZFUEa75TqnWs6kJuLABg1hDDArGv1sOKyoqc7RubztZ1lvSU7BS+rc5mwf1Is5a" crossorigin="anonymous">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.13.0/css/fontawesome.css" integrity="sha384-syoT0d9IcMjfxtHzbJUlNIuL19vD9XQAdOzftC+llPALVSZdxUpVXE0niLOiw/mn" crossorigin="anonymous">
+    <!-- {{!-- Sweet Alert CDN --}} -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
     <!-- {{!-- My Styles --}} -->
     <link rel="stylesheet" href="css/admin.min.css">
-    <link rel="stylesheet" href="css/products.min.css">
+    <link rel="stylesheet" href="css/add_product.min.css">
+
     </body>
 </head>
 
@@ -45,7 +51,7 @@
                 </div>
 
                 <div class="logout_button nav_buttons">
-                    <a href="/index.php" class="icon_link"><i class="fas fa-door-open"></i><span class="icon_text">Salir</span></a>
+                    <a href="index.php" class="icon_link"><i class="fas fa-door-open"></i><span class="icon_text">Salir</span></a>
                 </div>
             </div>
         </nav>
@@ -59,55 +65,46 @@
 
     <header class="header">
         <div class="container">
-            <div class="dpt-name">
-                <h2 class="enterprise">Departamento de Informática</h1>
-                    <h2 class="department">Cargos</h2>
-            </div>
-            <a id="addProduct" href="addJob.php"><i class="fas fa-plus"></i> Agregar Cargo</a>
+            <h2>Agregar Cargo</h2>
         </div>
     </header>
 
     <main class="main">
-        <!-- <h2>
-            Pulsa "Agregar Departamento"
-        </h2> -->
-
         <div class="container">
 
-            <ul class="products_list">
-                <a href="jobs.php">
-                    <li class="product" onclick="location.href='/admin/product/{{@key}}?{{{../pass}}}={{{../urlHash}}}'">
-                        <div class="product_imgbox">
+            <form class="form">
 
-                            <i class="product_imgbox_img fas fa-briefcase"></i>
+                <div class="form_section section_form">
+                    <div class="form_group">
+                        <label for="" class="form_group_label">
+                            Nombre
+                        </label>
+                        <input id="title" type="text" name="title" value="" />
+                    </div>
+                    <div class="form_group section_form">
+                        <label for="" class="form_group_label">
+                            Horas Semanales
+                        </label>
+                        <input id="detailPrice" type="number" name="detailPrice" value="" />
+                    </div>
+                    <div class="form_group section_form">
+                        <label for="" class="form_group_label">
+                            Precio De La Hora
+                        </label>
+                        <input id="bigPrice" type="number" name="bigPrice" value="" />
+                    </div>
+                </div>
 
-                        </div>
-                        <div class="product_info">
-                            <div class="product_info_titlebox">
-                                <h3 class="product_info_titlebox_title">
-                                    Programador
-                                </h3>
-                                <div class="product_info_titlebox_price">
-                                    10 Empleados
-                                </div>
-                                <div class="product_info_titlebox_price">
-                                    36 Horas Semanales
-                                </div>
-                                <div class="product_info_titlebox_price">
-                                    80000 Bs Por Hora
-                                </div>
-                            </div>
-                        </div>
-                    </li>
-                </a>
-            </ul>
+                <div class="button_group form_section">
 
+                    <input type="button" onclick="onSubmit" value="Agregar" class="button button_add" />
+                    <a href="jobs.php" class="button button_back">Volver</a>
+                    <a href="admin.php" class="button button_delete">Eliminar</a>
+                </div>
+            </form>
         </div>
-
     </main>
-
     <script src="scripts/adminMenu.js"></script>
-
 </body>
 
 </html>

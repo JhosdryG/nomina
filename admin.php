@@ -46,7 +46,7 @@
             </div>
         </nav>
         <div class="alternative-menu" id="alternative-menu">
-            <a href="index.php" class="menu_link"><i class="fas fa-building"></i> <span class="icon_text_alternative">Productos</span> </a>
+            <a href="admin.php" class="menu_link"><i class="fas fa-building"></i><span class="icon_text_alternative">Empresas</span></a>
         </div>
     </div>
 

@@ -1,14 +1,3 @@
-<?php 
-    include("validateRoute.php"); 
-    include("db.php");
-
-    if(isset($_GET['enterprise'])){
-        $_SESSION['enterprise'] = $_GET['enterprise'];
-        $id = $_GET['enterprise'];
-        $query = "SELECT * FROM department where enterprise_id = $id";
-        $result = $conn->query($query);
-    }
-?>
 <!DOCTYPE html>
 <html lang="es">
 
@@ -45,7 +34,13 @@
                         <a href="admin.php" class="icon_link building"><i class="fas fa-building"></i><span class="icon_text">Empresas</span></a>
                     </div>
                     <div class="nav_buttons options">
-                        <a href="departments.php" class="icon_link active"><i class="fas fa-sitemap active"></i><span class="icon_text">Departamentos</span></a>
+                        <a href="departments.php" class="icon_link"><i class="fas fa-sitemap"></i><span class="icon_text">Departamentos</span></a>
+                    </div>
+                    <div class="nav_buttons options">
+                        <a href="jobs.php" class="icon_link  building"><i class="fas fa-briefcase"></i><span class="icon_text">Cargos</span></a>
+                    </div>
+                    <div class="nav_buttons options">
+                        <a href="employees.php" class="icon_link active"><i class="fas fa-users active"></i><span class="icon_text">Empleados</span></a>
                     </div>
                 </div>
 
@@ -57,50 +52,55 @@
         <div class="alternative-menu" id="alternative-menu">
             <a href="admin.php" class="menu_link"><i class="fas fa-building"></i><span class="icon_text_alternative">Empresas</span></a>
             <a href="departments.php" class="menu_link"><i class="fas fa-sitemap"></i> <span class="icon_text_alternative">Departamentos</span></a>
+            <a href="jobs.php" class="menu_link"><i class="fas fa-briefcase"></i><span class="icon_text_alternative">Cargos</span></a>
+            <a href="employees.php" class="menu_link "><i class="fas fa-users "></i><span class="icon_text_alternative">Empleados</span></a>
         </div>
     </div>
 
     <header class="header">
         <div class="container">
             <div class="dpt-name">
-                <h2 class="enterprise">Devsktop</h1>
-                    <h2 class="department">Departamentos</h2>
+                <h2 class="enterprise">Departamento de Informática</h1>
+                    <h2 class="department">Empleados</h2>
             </div>
-            <a id="addProduct" href="addDepartment.php"><i class="fas fa-plus"></i> Agregar Departamento</a>
+            <a id="addProduct" href="addEmployee.php"><i class="fas fa-plus"></i> Agregar Empleado</a>
         </div>
     </header>
 
     <main class="main">
         <!-- <h2>
-            Pulsa "Agregar Departamento"
+            Pulsa "Agregar Empleado"
         </h2> -->
 
         <div class="container">
 
             <ul class="products_list">
+                <a href="employees.php">
+                    <li class="product" onclick="location.href='/admin/product/{{@key}}?{{{../pass}}}={{{../urlHash}}}'">
+                        <div class="product_imgbox">
 
+                            <i class="product_imgbox_img fas fa-users"></i>
 
-            <?php 
-                if ($result->num_rows > 0) {
-                    // output data of each row
-                    while($row = $result->fetch_assoc()) { ?>
-                        <li class="product" onclick="location.href='jobs.php?department=<?php echo $row['id'] ?>'">
-                            <div class="product_imgbox">
-                            <i class="product_imgbox_img fas fa-sitemap"></i>
-                            </div>
-                            <div class="product_info">
-                                <div class="product_info_titlebox">
-                                    <h3 class="product_info_titlebox_title">
-                                        <?php echo $row['name'] ?>
-                                    </h3>
+                        </div>
+                        <div class="product_info">
+                            <div class="product_info_titlebox">
+                                <h3 class="product_info_titlebox_title">
+                                    Alejandro Gonzalez
+                                </h3>
+                                <div class="product_info_titlebox_price">
+                                    V-27849217
+                                </div>
+                                <div class="product_info_titlebox_price">
+                                    Ingresó 10-10-2000
+                                </div>
+                                <div class="product_info_titlebox_price">
+                                    Programador
                                 </div>
                             </div>
-                        </li>
-                    <?php }
-                } else {
-                    echo "</ul>";
-                    echo "<p>No se han encontrado resultados</p>";
-                } ?>
+                        </div>
+                    </li>
+                </a>
+            </ul>
 
         </div>
 

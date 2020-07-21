@@ -1,14 +1,3 @@
-<?php 
-    include("validateRoute.php"); 
-    include("db.php");
-
-    if(isset($_GET['enterprise'])){
-        $_SESSION['enterprise'] = $_GET['enterprise'];
-        $id = $_GET['enterprise'];
-        $query = "SELECT * FROM department where enterprise_id = $id";
-        $result = $conn->query($query);
-    }
-?>
 <!DOCTYPE html>
 <html lang="es">
 
@@ -17,27 +6,33 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Admin</title>
+    <!-- {{!-- Firebase scripts --}} -->
+    <script src="https://www.gstatic.com/firebasejs/6.2.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/6.2.0/firebase-storage.js"></script>
     <!-- {{!-- Google fonts Roboto --}} -->
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
     <!-- {{!-- Font Awesome CDN --}} -->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.13.0/css/solid.css" integrity="sha384-fZFUEa75TqnWs6kJuLABg1hDDArGv1sOKyoqc7RubztZ1lvSU7BS+rc5mwf1Is5a" crossorigin="anonymous">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.13.0/css/fontawesome.css" integrity="sha384-syoT0d9IcMjfxtHzbJUlNIuL19vD9XQAdOzftC+llPALVSZdxUpVXE0niLOiw/mn" crossorigin="anonymous">
+    <!-- {{!-- Sweet Alert CDN --}} -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
     <!-- {{!-- My Styles --}} -->
     <link rel="stylesheet" href="css/admin.min.css">
-    <link rel="stylesheet" href="css/products.min.css">
-    </body>
+    <link rel="stylesheet" href="css/add_product.min.css">
+
+</body>
 </head>
 
 <body>
     <div class="nav_container">
-        <nav class="nav" id="menuNormal">
+    <nav class="nav" id="menuNormal">
             <div class="container">
                 <div class="main_nav_buttons">
                     <div class="menu_icon nav_buttons" id="menu_button">
-                        <i class="fas fa-bars"></i>
+                        <i class="fas fa-bars" ></i>
                         <span class="icon_text">Menu</span>
                     </div>
-
+                    
                 </div>
 
                 <div class="menu-center">
@@ -62,52 +57,33 @@
 
     <header class="header">
         <div class="container">
-            <div class="dpt-name">
-                <h2 class="enterprise">Devsktop</h1>
-                    <h2 class="department">Departamentos</h2>
-            </div>
-            <a id="addProduct" href="addDepartment.php"><i class="fas fa-plus"></i> Agregar Departamento</a>
+            <h2>Agregar Departamento</h2>
         </div>
     </header>
 
     <main class="main">
-        <!-- <h2>
-            Pulsa "Agregar Departamento"
-        </h2> -->
-
         <div class="container">
 
-            <ul class="products_list">
-
-
-            <?php 
-                if ($result->num_rows > 0) {
-                    // output data of each row
-                    while($row = $result->fetch_assoc()) { ?>
-                        <li class="product" onclick="location.href='jobs.php?department=<?php echo $row['id'] ?>'">
-                            <div class="product_imgbox">
-                            <i class="product_imgbox_img fas fa-sitemap"></i>
-                            </div>
-                            <div class="product_info">
-                                <div class="product_info_titlebox">
-                                    <h3 class="product_info_titlebox_title">
-                                        <?php echo $row['name'] ?>
-                                    </h3>
-                                </div>
-                            </div>
-                        </li>
-                    <?php }
-                } else {
-                    echo "</ul>";
-                    echo "<p>No se han encontrado resultados</p>";
-                } ?>
-
+            <form class="form">
+               
+                <div class="form_section section_form">
+                    <div class="form_group">
+                        <label for="" class="form_group_label">
+                            Nombre
+                        </label>
+                        <input id="title" type="text" name="title" value=""/>
+                    </div>
+                </div>
+                
+                <div class="button_group form_section">
+                    <input type="button" onclick="onSubmit" value="Agregar" class="button button_add"/>
+                    <a href="departments.php" class="button button_back">Volver</a>
+                    <a href="admin.php" class="button button_delete">Eliminar</a>
+                </div>
+            </form>
         </div>
-
     </main>
-
     <script src="scripts/adminMenu.js"></script>
-
 </body>
 
 </html>
