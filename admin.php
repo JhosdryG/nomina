@@ -1,3 +1,12 @@
+<?php
+session_start();
+    if(isset($_SESSION["logged"])){
+        if(!$_SESSION["logged"]) header("Location: index.php");
+    }else{
+        header("Location: index.php");
+    }
+?>
+
 <!DOCTYPE html>
 <html lang="es">
 
@@ -31,7 +40,7 @@
                     <a href="empresas.php" class="icon_link active"><i class="fas fa-building active"></i><span class="icon_text">Productos</span></a>
                 </div>
                 <div class="logout_button nav_buttons">
-                    <a href="/index.php" class="icon_link"><i class="fas fa-door-open"></i><span class="icon_text">Salir</span></a>
+                    <a href="logout.php" class="icon_link"><i class="fas fa-door-open"></i><span class="icon_text">Salir</span></a>
                 </div>
             </div>
         </nav>
