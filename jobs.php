@@ -1,12 +1,3 @@
-<?php
-session_start();
-if (isset($_SESSION["logged"])) {
-    if (!$_SESSION["logged"]) header("Location: index.php");
-} else {
-    header("Location: index.php");
-}
-?>
-
 <!DOCTYPE html>
 <html lang="es">
 
@@ -37,51 +28,61 @@ if (isset($_SESSION["logged"])) {
                     </div>
 
                 </div>
-                <div class="nav_buttons options">
-                    <a href="empresas.php" class="icon_link active building"><i class="fas fa-building active"></i><span class="icon_text">Productos</span></a>
+
+                <div class="menu-center">
+                    <div class="nav_buttons options">
+                        <a href="jobs.php" class="icon_link active building"><i class="fas fa-briefcase active"></i><span class="icon_text">Empresas</span></a>
+                    </div>
+                    <div class="nav_buttons options">
+                        <a href="employees.php" class="icon_link"><i class="fas fa-sitemap"></i><span class="icon_text">Cargos</span></a>
+                    </div>
                 </div>
+
                 <div class="logout_button nav_buttons">
-                    <a href="logout.php" class="icon_link"><i class="fas fa-door-open"></i><span class="icon_text">Salir</span></a>
+                    <a href="/index.php" class="icon_link"><i class="fas fa-door-open"></i><span class="icon_text">Salir</span></a>
                 </div>
             </div>
         </nav>
         <div class="alternative-menu" id="alternative-menu">
-            <a href="index.php" class="menu_link"><i class="fas fa-building"></i> <span class="icon_text_alternative">Productos</span> </a>
+            <a href="departments.php" class="menu_link"><i class="fas fa-sitemap"></i> <span class="icon_text_alternative">Cargos</span> </a>
         </div>
     </div>
 
     <header class="header">
         <div class="container">
-            <h2>Empresas</h2>
-            <a id="addProduct" href="addEnterprise.php"><i class="fas fa-plus"></i>  Agregar Empresa</a>
+            <div class="dpt-name">
+                <h2 class="enterprise">Departamento de Informática</h1>
+                    <h2 class="department">Cargos</h2>
+            </div>
+            <a id="addProduct" href="addDepartment.php"><i class="fas fa-plus"></i>  Agregar Cargo</a>
         </div>
     </header>
 
     <main class="main">
         <!-- <h2>
-            Pulsa "Agregar Empresa"
+            Pulsa "Agregar Departamento"
         </h2> -->
 
         <div class="container">
 
             <ul class="products_list">
-                <a href="departments.php">
+                <a href="jobs.php">
                     <li class="product" onclick="location.href='/admin/product/{{@key}}?{{{../pass}}}={{{../urlHash}}}'">
                         <div class="product_imgbox">
 
-                            <i class="product_imgbox_img fas fa-building"></i>
+                            <i class="product_imgbox_img fas fa-briefcase"></i>
 
                         </div>
                         <div class="product_info">
                             <div class="product_info_titlebox">
                                 <h3 class="product_info_titlebox_title">
-                                    Devsktop
+                                    Informática
                                 </h3>
                                 <div class="product_info_titlebox_price">
-                                    J-29778574-4
+                                    2 Cargos
                                 </div>
                                 <div class="product_info_titlebox_price">
-                                    10 Departamentos
+                                    10 Empleados
                                 </div>
                             </div>
                         </div>

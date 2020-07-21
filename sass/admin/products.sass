@@ -11,30 +11,19 @@
         display: flex
         flex-direction: column
         align-items: center
-        background: rgb(66,159,18)
-        background: -moz-linear-gradient(0deg, rgba(255,251,114,1) 0%, rgba(238,231,18,1) 100%)
-        background: -webkit-linear-gradient(0deg, rgba(255,251,114,1) 0%, rgba(238,231,18,1) 100%)
-        background: linear-gradient(0deg, rgba(255,251,114,1) 0%, rgba(238,231,18,1) 100%)
-        filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#429f12",endColorstr="#f5f071",GradientType=1)
+        background: $primary
         border: none
         border-radius: 10px
         cursor: pointer
         transition: all .4s ease-out
         &:hover
             transform: scale(1.01)
-            background: rgb(61,150,14)
-            background: -moz-linear-gradient(0deg, rgba(61,150,14,1) 17%, rgba(245,240,113,1) 99%)
-            background: -webkit-linear-gradient(0deg, rgba(61,150,14,1) 17%, rgba(245,240,113,1) 99%)
-            background: linear-gradient(0deg, rgba(61,150,14,1) 17%, rgba(245,240,113,1) 99%)
-            filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#3d960e",endColorstr="#f5f071",GradientType=1)
+            background: $secondary
 
         &_imgbox_img
-            width: 180px
-            height: 180px
+            font-size: 100px
             max-width: 100%
-            object-fit: cover
-            border-radius: 10px
-
+            color: $primary-light
         &_info
             display: flex
             flex-direction: column
@@ -46,20 +35,15 @@
                 
 
                 &_title
-                    
+                    color: $light
                     margin-bottom: 10px
-                    text-align: left
+                    text-align: center
                 
                 &_price
-                    color: $dark
+                    color: $primary-light
                     font-size: 1rem
-                    text-align-last: left
+                    text-align-last: center
                     margin: 15px 0
-
-            &_desc p 
-                color: black
-                line-height: 1.2rem
-
                 
 .header .container
     display: flex
@@ -71,21 +55,6 @@
         flex-direction: row
         justify-content: space-between
         align-items: center    
-
-    #addProduct
-        display: block
-        padding: 15px 25px
-        color: white
-        background-color: $secondary
-        border: none
-        border-radius: 10px
-        font-size: 1.2rem
-        cursor: pointer
-
-        
-
-        &:hover
-            background-color: $secondary-light
 
 .products_alert
     color: $primary-light
