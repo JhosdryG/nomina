@@ -4,27 +4,41 @@
 
     $created = false;
     $error = false;
+    $errormsg = "";
+    $insert_id = "";
 
     if(isset($_POST['add'])){
+        
         if(
             isset($_POST['name']) && 
-            isset($_POST['rif']) && 
+            isset($_POST['rif_l']) && 
+            isset($_POST['rif_n']) && 
             isset($_POST['dir']) && 
             isset($_POST['phone']) && 
             isset($_POST['risk'])
         ){
             $name = $_POST['name']; 
-            $rif = $_POST['rif']; 
+            $rif_l = $_POST['rif_l']; 
+            $rif_n = $_POST['rif_n']; 
+            $rif = $rif_l . "-" . $rif_n;
             $dir = $_POST['dir']; 
             $phone = $_POST['phone']; 
             $risk = $_POST['risk'];
 
-            $query = "CALL add_enterprise($name,$rif,$dir,$phone,$risk)";
-            $result = $conn->query($query) or die('Error: ' . mysqli_error($conn));
+            $query = "INSERT INTO enterprise(name, rif, dir, phone, risk ) VALUES ('$name','$rif','$dir','$phone',$risk)";
+
+            $result = $conn->query($query);
 
             if($result){
                 $created = true;
+                $insert_id = $conn->insert_id;
             }else{
+                if(mysqli_errno($conn) == 1062){
+                    $errormsg = "YA EXISTE UNA EMPRESA CON ESE NOMBRE O RIF";
+                }else{
+                    $errormsg = "HA OCURRIDO UN ERROR INESPERADO";
+                }
+
                 $error = true;
             }
         }
@@ -53,6 +67,7 @@
     <!-- {{!-- My Styles --}} -->
     <link rel="stylesheet" href="css/admin.min.css">
     <link rel="stylesheet" href="css/add_product.min.css">
+    <link rel="stylesheet" href="css/msgportal.min.css">
 
 </body>
 </head>
@@ -99,6 +114,12 @@
                         </label>
                         <input id="title" type="text" name="name" value=""/>
                     </div>
+                    <div class="form_group">
+                        <label for="" class="form_group_label">
+                            Dirección
+                        </label>
+                        <input id="title" type="text" name="dir" value=""/>
+                    </div>
 
                     <div class="form_group section_form">
                         <label for="" class="form_group_label">
@@ -106,9 +127,11 @@
                         </label>
                         <div class="rif">
                             <select name="rif_l" id="riesgo">
-                                <option value="0.09">9%</option>
-                                <option value="0.10">10%</option>
-                                <option value="0.11">11%</option>
+                                <option value="V">V</option>
+                                <option value="E">E</option>
+                                <option value="P">P</option>
+                                <option value="J">J</option>
+                                <option value="G">G</option>
                             </select>
                             <input id="detailPrice" type="number" name="rif_n" value=""/>
                         </div>
@@ -133,7 +156,7 @@
                 
                 <div class="button_group form_section">
 
-                    <input type="button" onclick="onSubmit" value="Agregar" class="button button_add" name="add"/>
+                    <input type="submit" value="Agregar" class="button button_add" name="add" />
                     <a href="admin.php" class="button button_back">Volver</a>
                 </div>
             </form>
@@ -142,15 +165,36 @@
 
     <?php 
         if($created){ ?>
-            <p>Creado satisfactoriamente </p>
+            <div class="portal">
+                <div class="portal_box">
+                    <p class="portal_box_title">
+                        Producto creado satisfactoriamente
+                    </p>
+                    <a href="departments.php?enterprise=<?php echo $insert_id ?>" class="portal_box_btn">Aceptar</a>
+                </div>
+            </div>
     <?php }else if($error){ ?>
 
-        <p>Ocurrió un error</p>
+        <div class="portal" id="errorportal">
+                <div class="portal_box">
+                    <p class="portal_box_title">
+                        <?php echo $errormsg ?>
+                    </p>
+                    <button id="closeportal" class="portal_box_btn">Aceptar</button>
+                </div>
+            </div>
 
     <?php } ?>
     
 
     <script src="scripts/adminMenu.js"></script>
+    <script>
+        
+        let portal = document.getElementById("errorportal");
+        let btn = document.getElementById("closeportal").addEventListener('click',()=>{
+            portal.classList.toggle("hide");
+        });
+    </script>
 </body>
 
 </html>

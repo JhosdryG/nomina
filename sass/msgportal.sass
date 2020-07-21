@@ -1,0 +1,43 @@
+@import vars
+@import global
+@import mixins
+.portal
+    position: fixed
+    top: 0
+    left: 0
+    width: 100vw
+    height: 100vh
+    display: flex
+    justify-content: center
+    align-items: center
+    background-color: #00000065
+    z-index: 100
+
+    &.hide
+        display: none
+
+    &_box
+        padding: 30px
+        background-color: #fff
+        display: flex
+        flex-direction: column
+        justify-content: space-between
+        align-items: center
+        border: none
+        border-radius: 8px
+
+        &_title 
+            font-size: 1.5rem
+            color: #4e4e4e
+            font-weight: bold
+            margin-bottom: 20px
+
+        &_btn
+            display: block
+            padding: 10px 20px
+            background-color: $secondary 
+            color: $primary-light
+            border-radius: 8px
+            font-size: 1.2rem
+            cursor: pointer
+

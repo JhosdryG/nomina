@@ -30,13 +30,13 @@
 
                 <div class="menu-center">
                     <div class="nav_buttons options">
-                        <a href="admin.php" class="icon_link"><i class="fas fa-building"></i><span class="icon_text">Empresas</span></a>
+                        <a href="admin.php" class="icon_link building"><i class="fas fa-building"></i><span class="icon_text">Empresas</span></a>
                     </div>
                     <div class="nav_buttons options">
                         <a href="departments.php" class="icon_link active"><i class="fas fa-sitemap active"></i><span class="icon_text">Departamentos</span></a>
                     </div>
                 </div>
-                
+
                 <div class="logout_button nav_buttons">
                     <a href="/index.php" class="icon_link"><i class="fas fa-door-open"></i><span class="icon_text">Salir</span></a>
                 </div>

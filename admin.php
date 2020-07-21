@@ -15,7 +15,8 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.13.0/css/fontawesome.css" integrity="sha384-syoT0d9IcMjfxtHzbJUlNIuL19vD9XQAdOzftC+llPALVSZdxUpVXE0niLOiw/mn" crossorigin="anonymous">
     <!-- {{!-- My Styles --}} -->
     <link rel="stylesheet" href="css/admin.min.css">
-</body>
+    <link rel="stylesheet" href="css/products.min.css">
+    </body>
 </head>
 
 <body>
@@ -24,10 +25,10 @@
             <div class="container">
                 <div class="main_nav_buttons">
                     <div class="menu_icon nav_buttons" id="menu_button">
-                        <i class="fas fa-bars" ></i>
+                        <i class="fas fa-bars"></i>
                         <span class="icon_text">Menu</span>
                     </div>
-                    
+
                 </div>
                 <div class="nav_buttons options">
                     <a href="empresas.php" class="icon_link active"><i class="fas fa-building active"></i><span class="icon_text">Productos</span></a>
@@ -38,7 +39,7 @@
             </div>
         </nav>
         <div class="alternative-menu" id="alternative-menu">
-            <a href="index.php" class="menu_link"><i class="fas fa-building"></i> <span class="icon_text_alternative" >Productos</span> </a>
+            <a href="index.php" class="menu_link"><i class="fas fa-building"></i> <span class="icon_text_alternative">Productos</span> </a>
         </div>
     </div>
 
@@ -50,9 +51,37 @@
     </header>
 
     <main class="main">
-        <h2>
+        <!-- <h2>
             Pulsa "Agregar Empresa"
-        </h2>
+        </h2> -->
+
+        <div class="container">
+
+            <ul class="products_list">
+                <li class="product" onclick="location.href='/admin/product/{{@key}}?{{{../pass}}}={{{../urlHash}}}'">
+                    <div class="product_imgbox">
+
+                        <img src="" alt="" class="product_imgbox_img"/>
+
+                    </div>
+                    <div class="product_info">
+                        <div class="product_info_titlebox">
+                            <h3 class="product_info_titlebox_title">
+                                Devsktop
+                            </h3>
+                            <div class="product_info_titlebox_price">
+                                J-29778574-4
+                            </div>
+                            <div class="product_info_titlebox_price">
+                                10 Departamentos
+                            </div>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+
+        </div>
+
     </main>
 
     <script src="scripts/adminMenu.js"></script>
