@@ -1,6 +1,11 @@
 <?php include("db.php"); 
 session_start();
 
+if(isset($_SESSION["logged"])){
+
+    if($_SESSION["logged"]) header("Location: admin.php");
+}
+
 $error = null;
 
 if(isset($_POST["login"])){
@@ -13,8 +18,10 @@ if(isset($_POST["login"])){
     $userExist = $userExist -> num_rows > 0;
 
     if($userExist){
+        $_SESSION["logged"] = true;
         header("Location: admin.php");
     }else{
+        $_SESSION["logged"] = false;
         $error = "Clave o contraseña invalida.";
     }
 }
@@ -67,5 +74,6 @@ if(isset($_POST["login"])){
         </div>
 
     </div>
+
 </body>
 </html>
