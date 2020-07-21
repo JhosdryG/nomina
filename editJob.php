@@ -1,3 +1,68 @@
+<?php 
+    include("validateRoute.php"); 
+    include("db.php");
+
+    $created = false;
+    $error = false;
+    $errormsg = "";
+    $insert_id = "";
+
+    $id_enterprise = $_SESSION['enterprise'];
+    $department = $_SESSION['department'];
+
+    
+    $id ="";
+    $row = "";
+    
+    if(isset($_GET['job'])){
+        $id = $_GET['job'];
+        $query = "SELECT * FROM job WHERE id = $id";
+
+        $result = $conn->query($query);
+
+        if($result){
+            $row = $result->fetch_assoc();
+        }       
+
+    }else {
+        header("Location: jobs.php?department=" . $department);
+    }
+
+    
+
+    if(isset($_POST['add'])){
+        
+        if(
+            isset($_POST['name']) &&
+            isset($_POST['weekhours']) &&
+            isset($_POST['price_hour'])
+        ){
+            $name = $_POST['name']; 
+            $weekhours = $_POST['weekhours']; 
+            $price_hour = $_POST['price_hour']; 
+
+            
+
+            $query = "UPDATE job set name = '$name', weekhours = $weekhours, price_hour = $price_hour WHERE id = $id;";
+
+            $result = $conn->query($query);
+
+            if($result){
+                $created = true;
+                $insert_id = $conn->insert_id;
+            }else{
+                if(mysqli_errno($conn) == 1062){
+                    $errormsg = "YA EXISTE UN CARGO CON ESE NOMBRE";
+                }else{
+                    $errormsg = "HA OCURRIDO UN ERROR INESPERADO " . mysqli_error($conn);
+                }
+
+                $error = true;
+            }
+        }
+    }
+
+?>
 <!DOCTYPE html>
 <html lang="es">
 
@@ -19,7 +84,7 @@
     <!-- {{!-- My Styles --}} -->
     <link rel="stylesheet" href="css/admin.min.css">
     <link rel="stylesheet" href="css/add_product.min.css">
-
+    <link rel="stylesheet" href="css/msgportal.min.css">
     </body>
 </head>
 
@@ -72,39 +137,67 @@
     <main class="main">
         <div class="container">
 
-            <form class="form">
+        <form class="form" method="POST" action="editJob.php?job='<?php echo $id ?>'">
 
-                <div class="form_section section_form">
-                    <div class="form_group">
-                        <label for="" class="form_group_label">
-                            Nombre
-                        </label>
-                        <input id="title" type="text" name="title" value="" />
-                    </div>
-                    <div class="form_group section_form">
-                        <label for="" class="form_group_label">
-                            Horas Semanales
-                        </label>
-                        <input id="detailPrice" type="number" name="detailPrice" value="" />
-                    </div>
-                    <div class="form_group section_form">
-                        <label for="" class="form_group_label">
-                            Precio De La Hora
-                        </label>
-                        <input id="bigPrice" type="number" name="bigPrice" value="" />
-                    </div>
+            <div class="form_section section_form">
+                <div class="form_group">
+                    <label for="" class="form_group_label">
+                        Nombre
+                    </label>
+                    <input id="title" type="text" name="name" value="<?php echo $row['name'] ?>" />
                 </div>
-
-                <div class="button_group form_section">
-
-                    <input type="button" onclick="onSubmit" value="Agregar" class="button button_add" />
-                    <a href="jobs.php" class="button button_back">Volver</a>
-                    <a href="admin.php" class="button button_delete">Eliminar</a>
+                <div class="form_group section_form">
+                    <label for="" class="form_group_label">
+                        Horas Semanales
+                    </label>
+                    <input id="detailPrice" type="number" name="weekhours" value="<?php echo $row['weekhours'] ?>" />
                 </div>
-            </form>
+                <div class="form_group section_form">
+                    <label for="" class="form_group_label">
+                        Precio De La Hora
+                    </label>
+                    <input id="bigPrice" type="number" name="price_hour" value="<?php echo $row['price_hour'] ?>" />
+                </div>
+            </div>
+
+            <div class="button_group form_section">
+
+                <input type="submit" name="add" value="Editar" class="button button_add" />
+                <a href="jobs.php?department=<?php echo $department ?>" class="button button_back">Volver</a>
+                <a href="deleteJob.php?job=<?php echo $id ?>" class="button button_delete">Eliminar</a>
+            </div>
+        </form>
         </div>
     </main>
+    <?php 
+        if($created){ ?>
+            <div class="portal">
+                <div class="portal_box">
+                    <p class="portal_box_title">
+                        Cargo modificado satisfactoriamente
+                    </p>
+                    <a href="jobs.php?department=<?php echo $department ?>" class="portal_box_btn">Aceptar</a>
+                </div>
+            </div>
+    <?php }else if($error){ ?>
+
+        <div class="portal" id="errorportal">
+                <div class="portal_box">
+                    <p class="portal_box_title">
+                        <?php echo $errormsg ?>
+                    </p>
+                    <button id="closeportal" class="portal_box_btn">Aceptar</button>
+                </div>
+            </div>
+
+    <?php } ?>
     <script src="scripts/adminMenu.js"></script>
+    <script>
+        let portal = document.getElementById("errorportal");
+        let btn = document.getElementById("closeportal").addEventListener('click',()=>{
+            portal.classList.toggle("hide");
+        });
+    </script>
 </body>
 
 </html>
