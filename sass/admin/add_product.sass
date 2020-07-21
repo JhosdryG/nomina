@@ -78,7 +78,7 @@ main
         
         @include tablet()
             grid-area: buttons
-            grid-template-columns: repeat(3, 1fr)
+            grid-template-columns: repeat(2, 1fr)
             justify-content: center
             grid-gap: 20px
             padding: 20px 100px
@@ -106,6 +106,10 @@ main
             
             &_delete
                 background-color: #e93731
+
+    .button_group_update
+        @include tablet()
+            grid-template-columns: repeat(3, 1fr)
 
 #smallImage
     display: none

@@ -37,16 +37,10 @@
                         <a href="departments.php" class="icon_link"><i class="fas fa-sitemap"></i><span class="icon_text">Departamentos</span></a>
                     </div>
                     <div class="nav_buttons options">
-                        <a href="jobs.php" class="icon_link  building"><i class="fas fa-briefcase"></i><span class="icon_text">Cargos</span></a>
+                        <a href="concepts.php" class="icon_link"><i class="fas fa-money-check "></i><span class="icon_text">Conceptos De Pago</span></a>
                     </div>
                     <div class="nav_buttons options">
-                        <a href="employees.php" class="icon_link active"><i class="fas fa-users active"></i><span class="icon_text active">Empleados</span></a>
-                    </div>
-                    <div class="nav_buttons options">
-                        <a href="concepts.php" class="icon_link"><i class="fas fa-money-check"></i><span class="icon_text">Conceptos De Pago</span></a>
-                    </div>
-                    <div class="nav_buttons options">
-                        <a href="payroll.php" class="icon_link"><i class="fas fa-money-check-alt"></i><span class="icon_text">Nómina</span></a>
+                        <a href="payroll.php" class="icon_link active"><i class="fas fa-money-check-alt active"></i><span class="icon_text active">Nómina</span></a>
                     </div>
                 </div>
 
@@ -58,8 +52,6 @@
         <div class="alternative-menu" id="alternative-menu">
             <a href="admin.php" class="menu_link"><i class="fas fa-building"></i><span class="icon_text_alternative">Empresas</span></a>
             <a href="departments.php" class="menu_link"><i class="fas fa-sitemap"></i> <span class="icon_text_alternative">Departamentos</span></a>
-            <a href="jobs.php" class="menu_link"><i class="fas fa-briefcase"></i><span class="icon_text_alternative">Cargos</span></a>
-            <a href="employees.php" class="menu_link "><i class="fas fa-users "></i><span class="icon_text_alternative">Empleados</span></a>
             <a href="concepts.php" class="menu_link"><i class="fas fa-money-check"></i><span class="icon_text_alternative">Conceptos De Pago</span></a>
             <a href="payroll.php" class="menu_link"><i class="fas fa-money-check-alt"></i><span class="icon_text_alternative">Nómina</span></a>
         </div>
@@ -68,41 +60,38 @@
     <header class="header">
         <div class="container">
             <div class="dpt-name">
-                <h2 class="enterprise">Departamento de Informática</h1>
-                    <h2 class="department">Empleados</h2>
+                <h2 class="enterprise">Devsktop</h1>
+                    <h2 class="department">Nómina</h2>
             </div>
-            <a id="addProduct" href="addEmployee.php"><i class="fas fa-plus"></i> Agregar Empleado</a>
+            <a id="addProduct" href="addConcept.php"><i class="fas fa-plus"></i> Calcular Nómina</a>
         </div>
     </header>
 
     <main class="main">
         <!-- <h2>
-            Pulsa "Agregar Empleado"
+            Pulsa "Agregar Departamento"
         </h2> -->
 
         <div class="container">
 
             <ul class="products_list">
-                <a href="employees.php">
+                <a href="jobs.php">
                     <li class="product" onclick="location.href='/admin/product/{{@key}}?{{{../pass}}}={{{../urlHash}}}'">
                         <div class="product_imgbox">
 
-                            <i class="product_imgbox_img fas fa-users"></i>
+                            <i class="product_imgbox_img fas fa-money-check"></i>
 
                         </div>
                         <div class="product_info">
                             <div class="product_info_titlebox">
                                 <h3 class="product_info_titlebox_title">
-                                    Alejandro Gonzalez
+                                    Antiguedad
                                 </h3>
                                 <div class="product_info_titlebox_price">
-                                    V-27849217
+                                    Asignación
                                 </div>
                                 <div class="product_info_titlebox_price">
-                                    Ingresó 10-10-2000
-                                </div>
-                                <div class="product_info_titlebox_price">
-                                    Programador
+                                    10%
                                 </div>
                             </div>
                         </div>
