@@ -1,4 +1,11 @@
-<?php include("validateRoute.php"); ?>
+<?php 
+    include("validateRoute.php"); 
+    include("db.php");
+
+    $query = "SELECT * FROM enterprise";
+    $result = $conn->query($query);
+    
+?>
 
 <!DOCTYPE html>
 <html lang="es">
@@ -58,29 +65,34 @@
         <div class="container">
 
             <ul class="products_list">
-                <a href="departments.php">
-                    <li class="product" onclick="location.href='/admin/product/{{@key}}?{{{../pass}}}={{{../urlHash}}}'">
-                        <div class="product_imgbox">
 
-                            <i class="product_imgbox_img fas fa-building"></i>
-
-                        </div>
-                        <div class="product_info">
-                            <div class="product_info_titlebox">
-                                <h3 class="product_info_titlebox_title">
-                                    Devsktop
-                                </h3>
-                                <div class="product_info_titlebox_price">
-                                    J-29778574-4
-                                </div>
-                                <div class="product_info_titlebox_price">
-                                    10 Departamentos
+            <?php 
+                if ($result->num_rows > 0) {
+                    // output data of each row
+                    while($row = $result->fetch_assoc()) { ?>
+                        <li class="product" onclick="location.href='departments.php?enterprise=<?php echo $row['id'] ?>'">
+                            <div class="product_imgbox">
+                                <i class="product_imgbox_img fas fa-building"></i>
+                            </div>
+                            <div class="product_info">
+                                <div class="product_info_titlebox">
+                                    <h3 class="product_info_titlebox_title">
+                                    <?php echo $row['name'] ?>
+                                    </h3>
+                                    <div class="product_info_titlebox_price">
+                                    <?php echo $row['rif'] ?>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    </li>
-                </a>
-            </ul>
+                        </li>
+                    <?php }
+                } else {
+                    echo "</ul>";
+                    echo "<p>No se han encontrado resultados</p>";
+                }
+                ?>
+                
+            
 
         </div>
 

@@ -168,7 +168,7 @@
             <div class="portal">
                 <div class="portal_box">
                     <p class="portal_box_title">
-                        Producto creado satisfactoriamente
+                        Empresa creada satisfactoriamente
                     </p>
                     <a href="departments.php?enterprise=<?php echo $insert_id ?>" class="portal_box_btn">Aceptar</a>
                 </div>

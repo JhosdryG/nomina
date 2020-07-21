@@ -1,3 +1,14 @@
+<?php 
+    include("validateRoute.php"); 
+    include("db.php");
+
+    if(isset($_GET['enterprise'])){
+        $_SESSION['enterprise'] = $_GET['enterprise'];
+        $id = $_GET['enterprise'];
+        $query = "SELECT * FROM department where enterprise_id = $id";
+        $result = $conn->query($query);
+    }
+?>
 <!DOCTYPE html>
 <html lang="es">
 
@@ -66,29 +77,29 @@
         <div class="container">
 
             <ul class="products_list">
-                <a href="jobs.php">
-                    <li class="product" onclick="location.href='/admin/product/{{@key}}?{{{../pass}}}={{{../urlHash}}}'">
-                        <div class="product_imgbox">
 
+
+            <?php 
+                if ($result->num_rows > 0) {
+                    // output data of each row
+                    while($row = $result->fetch_assoc()) { ?>
+                        <li class="product" onclick="location.href='jobs.php?department=<?php echo $row['id'] ?>'">
+                            <div class="product_imgbox">
                             <i class="product_imgbox_img fas fa-sitemap"></i>
-
-                        </div>
-                        <div class="product_info">
-                            <div class="product_info_titlebox">
-                                <h3 class="product_info_titlebox_title">
-                                    Informática
-                                </h3>
-                                <div class="product_info_titlebox_price">
-                                    2 Cargos
-                                </div>
-                                <div class="product_info_titlebox_price">
-                                    10 Empleados
+                            </div>
+                            <div class="product_info">
+                                <div class="product_info_titlebox">
+                                    <h3 class="product_info_titlebox_title">
+                                        <?php echo $row['name'] ?>
+                                    </h3>
                                 </div>
                             </div>
-                        </div>
-                    </li>
-                </a>
-            </ul>
+                        </li>
+                    <?php }
+                } else {
+                    echo "</ul>";
+                    echo "<p>No se han encontrado resultados</p>";
+                } ?>
 
         </div>
 
