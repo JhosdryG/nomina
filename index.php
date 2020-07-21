@@ -1,3 +1,26 @@
+<?php include("db.php"); 
+session_start();
+
+$error = null;
+
+if(isset($_POST["login"])){
+    $user = $_POST['user'];
+    $pass = $_POST['pass'];
+
+    $query = "SELECT *  FROM users WHERE users.name = '$user' AND users.pass = '$pass'";
+
+    $userExist = $conn->query($query) or die('Error: ' . mysqli_error($conn));
+    $userExist = $userExist -> num_rows > 0;
+
+    if($userExist){
+        header("Location: admin.php");
+    }else{
+        $error = "Clave o contraseña invalida.";
+    }
+}
+
+
+?>
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -23,16 +46,22 @@
                 <p class="para">Inicia sesión y administra empresas, departamentos, cargos y empleados</p>
             </div>
 
-            <form action="/login" method="POST" class="form_login">
+            <form action="index.php" method="POST" class="form_login">
 
                 <label class="form_title">Iniciar sesión</label>
 
-                <input type="text" name="reqUsername" id="username" placeholder="Ingrese usuario..." />
+                <input type="text" name="user" id="username" placeholder="Ingrese usuario..." />
 
-                <input type="password" name="reqPassword" id="password" placeholder="Ingrese contraseña..."/>
+                <input type="password" name="pass" id="password" placeholder="Ingrese contraseña..."/>
                 
-                <input type="submit" value="Ingresar"/>
+                <input type="submit" value="Ingresar" name="login"/>
                 <button>Recuperar</button>
+
+                <?php 
+                    if($error){
+                        echo "<span class='log_error'>$error</span>";
+                    }
+                ?>
             </form>
 
         </div>
