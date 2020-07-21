@@ -15,7 +15,7 @@ if(isset($_POST["login"])){
     if($userExist){
         header("Location: admin.php");
     }else{
-        $error = "Clave o contraseña invalida.";
+        $error = "Clave o contraseña invalida";
     }
 }
 

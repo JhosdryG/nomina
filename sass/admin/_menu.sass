@@ -61,7 +61,7 @@
         transition: all .2s ease-out
 
         &.active
-            width: 170px
+            width: 190px
 
 
     .container
@@ -75,28 +75,6 @@
         max-width: 100%
         min-height: 68px
         background-color: $secondary
-
-        .logodiv
-            display: flex
-            width: 100%
-            background-color: #262626
-            padding: 5px
-            border-radius: 50%
-            margin-right: 15px
-            @include tablet()
-                padding: 15px
-                padding-left: 12px
-                border-radius: 0
-        .logo_mini
-            width: 36px
-            height: 29px
-            justify-content: flex-start
-
-            &.active
-                justify-content: center
-                width: 80px
-                height: 29px
-            
 
         .icon_text
             display: none
@@ -142,12 +120,15 @@
                         background-color: $secondary-light
 
                     &.active 
-                        background-color: $secondary-light
+                        background-color: $primary-light
 
                 .icon_text
                     display: inline
                     color: #ffffff
                     font-weight: bold
+
+
+                    
                 
 
                 
@@ -183,12 +164,18 @@
             color: $primary-light
             cursor: pointer
 
+            &.active 
+                color: $primary
 
         .options
             display: none
+            margin-bottom: 10px
             @include tablet()
                 display: block
                 min-width: 190px
+
+                &:last-child
+                    margin-bottom: 0
 
                 .fas
                     margin-right: 20px

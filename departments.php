@@ -27,29 +27,39 @@
                     </div>
                     
                 </div>
-                <div class="nav_buttons options">
-                    <a href="empresas.php" class="icon_link active"><i class="fas fa-building active"></i><span class="icon_text">Productos</span></a>
+
+                <div class="menu-center">
+                    <div class="nav_buttons options">
+                        <a href="admin.php" class="icon_link"><i class="fas fa-building"></i><span class="icon_text">Empresas</span></a>
+                    </div>
+                    <div class="nav_buttons options">
+                        <a href="departments.php" class="icon_link active"><i class="fas fa-sitemap active"></i><span class="icon_text">Departamentos</span></a>
+                    </div>
                 </div>
+                
                 <div class="logout_button nav_buttons">
                     <a href="/index.php" class="icon_link"><i class="fas fa-door-open"></i><span class="icon_text">Salir</span></a>
                 </div>
             </div>
         </nav>
         <div class="alternative-menu" id="alternative-menu">
-            <a href="index.php" class="menu_link"><i class="fas fa-building"></i> <span class="icon_text_alternative" >Productos</span> </a>
+            <a href="departments.php" class="menu_link"><i class="fas fa-sitemap"></i> <span class="icon_text_alternative" >Departamentos</span> </a>
         </div>
     </div>
 
     <header class="header">
         <div class="container">
-            <h2>Empresas</h2>
-            <a id="addProduct" href="addEnterprise.php"><i class="fas fa-plus"></i> Agregar Empresa</a>
+        <div class="dpt-name">
+            <h2 class="enterprise">Empresa</h1>
+            <h2 class="department">Departamentos</h2>
+        </div>
+            <a id="addProduct" href="addDepartment.php"><i class="fas fa-plus"></i>  Agregar Departamento</a>
         </div>
     </header>
 
     <main class="main">
         <h2>
-            Pulsa "Agregar Empresa"
+            Pulsa "Agregar Departamento"
         </h2>
     </main>
 

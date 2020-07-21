@@ -35,7 +35,7 @@
                     
                 </div>
                 <div class="nav_buttons options">
-                    <a href="admin.php" class="icon_link active"><i class="fas fa-building"></i><span class="icon_text">Productos</span></a>
+                    <a href="admin.php" class="icon_link active"><i class="fas fa-building active"></i><span class="icon_text">Productos</span></a>
                 </div>
                 <div class="logout_button nav_buttons">
                     <a href="/admin/logout" class="icon_link"><i class="fas fa-door-open"></i><span class="icon_text">Salir</span></a>
@@ -83,9 +83,9 @@
                             Porcentaje de riesgo
                         </label>
                         <select name="" id="riesgo">
-                            <option value="nine">9%</option>
-                            <option value="ten">10%</option>
-                            <option value="eleven">11%</option>
+                            <option value="0.09">9%</option>
+                            <option value="0.10">10%</option>
+                            <option value="0.11">11%</option>
                         </select>
                     </div>
                 </div>
@@ -98,8 +98,7 @@
             </form>
         </div>
     </main>
-    <script src="/scripts/adminMenu.js"></script>
-    <script src="/scripts/addProduct.js"></script>
+    <script src="scripts/adminMenu.js"></script>
 </body>
 
 </html>
