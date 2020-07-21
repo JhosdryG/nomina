@@ -21,8 +21,7 @@ if(isset($_POST["login"])){
         $_SESSION["logged"] = true;
         header("Location: admin.php");
     }else{
-        $_SESSION["logged"] = false;
-        $error = "Clave o contraseña invalida.";
+        $error = "Clave o contraseña invalida";
     }
 }
 
