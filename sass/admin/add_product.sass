@@ -10,54 +10,33 @@ main
 
 .form
     padding: 20px
-    background: $primary
+    background: $secondary
     border: none
     border-radius: 6px
     width: 100%
     max-width: 100%
 
     @include tablet()
-        display: grid
-        grid-template-areas: "image form" "buttons buttons"   
-        grid-template-columns: 40% 60%
-        grid-gap: 20px
         padding: 40px 60px
 
         .form_section
             display: flex
             flex-direction: column
             justify-content: space-between
-
-            &.section_image
-                padding: 20px
-                border-radius: 10px
-                background-color: $primary-light
-                grid-area: image
                 
-
             &.section_form
                 padding: 20px
                 border-radius: 10px
-                background-color: $primary-light
+                background-color: $secondary
                 grid-area: form
-
 
     &_group
         display: flex
         flex-direction: column
 
-
-        #productImage
-            width: 100%
-            max-height: 300px
-            margin: 35px auto
-            margin-top: 0
-            border: none
-            border-radius: 10px
-
         &_label
             margin: 25px 0 10px 0
-            color: $secondary
+            color: $primary-light
             font-size: 1rem
             @include tablet()
                 margin: 0
@@ -74,18 +53,16 @@ main
             @include tablet()
                 margin-bottom: 15px
 
-        & textarea
+        & select
             padding: 6px
             font-size: 1rem
             color: $dark
-            border: none
-            border-radius: 6px
-            outline: none
-            resize: none
-            width: 100%
             border: 2px solid $secondary
-            height: 100px
+            border-radius: 6px
             background-color: #fff
+            outline: none
+            @include tablet()
+                margin-bottom: 15px
 
         & [type="file"]
             display: inline-block
@@ -117,20 +94,19 @@ main
             width: 100%
             font-size: 1.1rem
             text-align: center
-            color: #fff
+            color: $primary
             border: none
             border-radius: 6px
             cursor: pointer
 
+            &:hover
+                background-color: $secondary-light
+
             &_add
-                background-color: $secondary
+                background-color: $primary-light
                 
-
-            &_delete
-                background-color: #e93731
-
             &_back
-                background-color: $secondary
+                background-color: $primary-light
 
 #smallImage
     display: none

@@ -21,9 +21,6 @@
         <nav class="nav" id="menuNormal">
             <div class="container">
                 <div class="main_nav_buttons">
-                    <div class="logodiv">
-                        <img src="img/Devsktop-icon.png" alt="logo_mini" class="logo_mini" id="startLogo"/>
-                    </div>
                     <div class="menu_icon nav_buttons" id="menu_button">
                         <i class="fas fa-bars" ></i>
                         <span class="icon_text">Menu</span>
@@ -31,7 +28,7 @@
                     
                 </div>
                 <div class="nav_buttons options">
-                    <a href="empresas.php" class="icon_link"><i class="fas fa-box-open"></i><span class="icon_text">Productos</span></a>
+                    <a href="empresas.php" class="icon_link"><i class="fas fa-building"></i><span class="icon_text">Productos</span></a>
                 </div>
                 <div class="logout_button nav_buttons">
                     <a href="/index.php" class="icon_link"><i class="fas fa-door-open"></i><span class="icon_text">Salir</span></a>
@@ -39,19 +36,20 @@
             </div>
         </nav>
         <div class="alternative-menu" id="alternative-menu">
-            <a href="/admin/productos?{{{pass}}}={{{urlHash}}}" class="menu_link"><i class="fas fa-box-open"></i> <span class="icon_text_alternative" >Productos</span> </a>
+            <a href="/admin/productos?{{{pass}}}={{{urlHash}}}" class="menu_link"><i class="fas fa-building"></i> <span class="icon_text_alternative" >Productos</span> </a>
         </div>
     </div>
 
     <header class="header">
         <div class="container">
-            <h2>Administrar Web</h2>
+            <h2>Empresas</h2>
+            <a id="addProduct" href="addEnterprise.php"><i class="fas fa-plus"></i> Agregar Empresa</a>
         </div>
     </header>
 
     <main class="main">
         <h2>
-            Seleccione el menu la sección que desea administar.
+            Pulsa "Agregar Empresa"
         </h2>
     </main>
 

@@ -3,7 +3,7 @@
 @import ../mixins
 
 body
-    background-color: $secondary-light
+    background-color: $primary-light
 
 
 
@@ -17,16 +17,30 @@ body
     margin-top: 68px
     width: 100%
     padding: 30px
-    background: linear-gradient(90deg, rgba(238,231,18,1) 0%, rgba(255,251,114,1) 100%)
-
+    background: $primary
     z-index: 1
+
+    .container
+        display: flex
+        justify-content: space-between
+        align-items: center
 
     h2 
         text-align: center
-        color: $secondary
+        color: $primary-light
         @include tablet()
             font-size: 2rem
             text-align: left
+
+    #addProduct
+        background: $primary-light
+        padding: 15px
+        border-radius: 10px
+        color: $primary
+
+        &:hover
+                background-color: $secondary-light
+
 
 
     @include tablet()
@@ -41,7 +55,7 @@ body
     justify-content: center
     align-items: center
     padding: 30px
-    background-color: $secondary-light
+    background-color: $primary-light
     
 
     h2 
