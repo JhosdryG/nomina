@@ -29,11 +29,24 @@
 
     if(isset($_POST['add'])){
         
-        if(isset($_POST['name'])){
+        if(
+            isset($_POST['name']) &&
+            isset($_POST['last_name']) &&
+            isset($_POST['id']) &&
+            isset($_POST['born']) &&
+            isset($_POST['start']) &&
+            isset($_POST['job']) 
+        ){
             $name = $_POST['name']; 
+            $last_name = $_POST['last_name']; 
+            $id = $_POST['id']; 
+            $born = $_POST['born']; 
+            $start = $_POST['start']; 
+            $job = $_POST['job']; 
+
             $enterprise = $_SESSION['enterprise'];
 
-            $query = "INSERT INTO department(name,enterprise_id) VALUES ('$name',$enterprise);";
+            $query = "INSERT INTO employees(name, dni, birthdate, hiredate, department_id,job_id) VALUES ('$name $last_name', $id, '$born', '$start',  $enterprise, $job);";
 
             $result = $conn->query($query);
 
@@ -49,6 +62,8 @@
 
                 $error = true;
             }
+        }else{
+            header("Location: admin.php");
         }
     }
 
@@ -75,7 +90,7 @@
     <!-- {{!-- My Styles --}} -->
     <link rel="stylesheet" href="css/admin.min.css">
     <link rel="stylesheet" href="css/add_product.min.css">
-
+    <link rel="stylesheet" href="css/msgportal.min.css">
     </body>
 </head>
 
@@ -99,10 +114,10 @@
                         <a href="departments.php" class="icon_link"><i class="fas fa-sitemap"></i><span class="icon_text">Departamentos</span></a>
                     </div>
                     <div class="nav_buttons options">
-                        <a href="jobs.php" class="icon_link  building"><i class="fas fa-briefcase"></i><span class="icon_text">Cargos</span></a>
+                        <a href="jobs.php?department=<?php echo $department ?>" class="icon_link  building"><i class="fas fa-briefcase"></i><span class="icon_text">Cargos</span></a>
                     </div>
                     <div class="nav_buttons options">
-                        <a href="employees.php" class="icon_link active"><i class="fas fa-users active"></i><span class="icon_text active">Empleados</span></a>
+                        <a href="employees.php?department=<?php echo $department ?>" class="icon_link active"><i class="fas fa-users active"></i><span class="icon_text active">Empleados</span></a>
                     </div>
                     <div class="nav_buttons options">
                         <a href="concepts.php" class="icon_link"><i class="fas fa-money-check"></i><span class="icon_text">Conceptos De Pago</span></a>
@@ -120,8 +135,8 @@
         <div class="alternative-menu" id="alternative-menu">
             <a href="admin.php" class="menu_link"><i class="fas fa-building"></i><span class="icon_text_alternative">Empresas</span></a>
             <a href="departments.php" class="menu_link"><i class="fas fa-sitemap"></i> <span class="icon_text_alternative">Departamentos</span></a>
-            <a href="jobs.php" class="menu_link"><i class="fas fa-briefcase"></i><span class="icon_text_alternative">Cargos</span></a>
-            <a href="employees.php" class="menu_link "><i class="fas fa-users "></i><span class="icon_text_alternative">Empleados</span></a>
+            <a href="jobs.php?department=<?php echo $department ?>" class="menu_link"><i class="fas fa-briefcase"></i><span class="icon_text_alternative">Cargos</span></a>
+            <a href="employees.php?department=<?php echo $department ?>" class="menu_link "><i class="fas fa-users "></i><span class="icon_text_alternative">Empleados</span></a>
             <a href="concepts.php" class="menu_link"><i class="fas fa-money-check"></i><span class="icon_text_alternative">Conceptos De Pago</span></a>
             <a href="payroll.php" class="menu_link"><i class="fas fa-money-check-alt"></i><span class="icon_text_alternative">Nómina</span></a>
         </div>
@@ -136,7 +151,7 @@
     <main class="main">
         <div class="container">
 
-            <form class="form">
+            <form class="form" method="POST" action="addEmployee.php">
 
                 <div class="form_section section_form">
                     <div class="form_group">
@@ -182,7 +197,7 @@
                 <div class="button_group form_section">
 
                     <input type="submit" value="Agregar" name="add" class="button button_add" />
-                    <a href="employees.php" class="button button_back">Volver</a>
+                    <a href="employees.php?department=<?php echo $department ?>" class="button button_back">Volver</a>
                 </div>
             </form>
         </div>

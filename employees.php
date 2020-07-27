@@ -4,7 +4,7 @@
 
     $departmentName = "";
     $id_enterprise = "";
-    $id = ""N
+    $id = "";
     if(isset($_GET['department'])){
 
         $_SESSION['department'] = $_GET['department'];
