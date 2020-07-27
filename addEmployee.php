@@ -1,3 +1,59 @@
+<?php 
+    include("validateRoute.php"); 
+    include("db.php");
+
+    $created = false;
+    $error = false;
+    $errormsg = "";
+    $insert_id = "";
+
+    $id_enterprise = $_SESSION['enterprise'];
+    $department = $_SESSION['department'];
+
+    $jobs = '';
+
+    $query = "SELECT * FROM job WHERE department_id = $department";
+    $result = $conn->query($query);
+
+
+
+    if ($result->num_rows > 0) {
+        // output data of each row
+        while($row = $result->fetch_assoc()) {
+        $jobs .= '<option value="'.$row['id'].'">'.$row['name'].'</option>';
+        }
+
+      } else {
+        header("Location: addJob.php");
+      }
+
+    if(isset($_POST['add'])){
+        
+        if(isset($_POST['name'])){
+            $name = $_POST['name']; 
+            $enterprise = $_SESSION['enterprise'];
+
+            $query = "INSERT INTO department(name,enterprise_id) VALUES ('$name',$enterprise);";
+
+            $result = $conn->query($query);
+
+            if($result){
+                $created = true;
+                $insert_id = $conn->insert_id;
+            }else{
+                if(mysqli_errno($conn) == 1062){
+                    $errormsg = "YA EXISTE UN DEPARTAMENTO CON ESE NOMBRE";
+                }else{
+                    $errormsg = "HA OCURRIDO UN ERROR INESPERADO " . mysqli_error($conn);
+                }
+
+                $error = true;
+            }
+        }
+    }
+
+
+?>
 <!DOCTYPE html>
 <html lang="es">
 
@@ -93,7 +149,7 @@
                         <label for="last-name" class="form_group_label">
                             Apellido
                         </label>
-                        <input id="last-name" type="text" name="last-name" value="" />
+                        <input id="last_name" type="text" name="last_name" value="" />
                     </div>
                     <div class="form_group section_form">
                         <label for="id" class="form_group_label">
@@ -118,24 +174,49 @@
                             Cargo
                         </label>
                         <select name="job" id="job">
-                            <option value="">Cargos</option>
-                            <option value="">Cargos</option>
-                            <option value="">Cargos</option>
-                            <option value="">Cargos</option>
-                            <option value="">Cargos</option>
+                            <?php echo $jobs ?>
                         </select>
                     </div>
                 </div>
 
                 <div class="button_group form_section">
 
-                    <input type="button" onclick="onSubmit" value="Agregar" class="button button_add" />
+                    <input type="submit" value="Agregar" name="add" class="button button_add" />
                     <a href="employees.php" class="button button_back">Volver</a>
                 </div>
             </form>
         </div>
     </main>
     <script src="scripts/adminMenu.js"></script>
+    <?php 
+        if($created){ ?>
+            <div class="portal">
+                <div class="portal_box">
+                    <p class="portal_box_title">
+                        Departamento creado satisfactoriamente
+                    </p>
+                    <a href="jobs.php?department=<?php echo $insert_id ?>" class="portal_box_btn">Aceptar</a>
+                </div>
+            </div>
+    <?php }else if($error){ ?>
+
+        <div class="portal" id="errorportal">
+                <div class="portal_box">
+                    <p class="portal_box_title">
+                        <?php echo $errormsg ?>
+                    </p>
+                    <button id="closeportal" class="portal_box_btn">Aceptar</button>
+                </div>
+            </div>
+
+    <?php } ?>
+    <script src="scripts/adminMenu.js"></script>
+    <script>
+        let portal = document.getElementById("errorportal");
+        let btn = document.getElementById("closeportal").addEventListener('click',()=>{
+            portal.classList.toggle("hide");
+        });
+    </script>
 </body>
 
 </html>

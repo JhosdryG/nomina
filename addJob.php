@@ -8,7 +8,7 @@
     $insert_id = "";
 
     $id_enterprise = $_SESSION['enterprise'];
-
+    $department = $_SESSION['department'];
     if(isset($_POST['add'])){
         
         if(
@@ -20,7 +20,7 @@
             $weekhours = $_POST['weekhours']; 
             $price_hour = $_POST['price_hour']; 
 
-            $department = $_SESSION['department'];
+            
 
             $query = "INSERT INTO job(name, weekhours ,price_hour, department_id) VALUES ('$name',$weekhours, $price_hour, $department);";
 

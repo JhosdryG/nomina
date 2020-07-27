@@ -105,7 +105,7 @@
                         <a href="admin.php" class="icon_link building"><i class="fas fa-building"></i><span class="icon_text">Empresas</span></a>
                     </div>
                     <div class="nav_buttons options">
-                        <a href="departments.php" class="icon_link"><i class="fas fa-sitemap"></i><span class="icon_text">Departamentos</span></a>
+                        <a href="departments.php?enterprise=<?php echo $id_enterprise ?>" class="icon_link"><i class="fas fa-sitemap"></i><span class="icon_text">Departamentos</span></a>
                     </div>
                     <div class="nav_buttons options">
                         <a href="jobs.php" class="icon_link active building"><i class="fas fa-briefcase active"></i><span class="icon_text active">Cargos</span></a>
