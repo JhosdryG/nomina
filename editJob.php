@@ -108,10 +108,10 @@
                         <a href="departments.php?enterprise=<?php echo $id_enterprise ?>" class="icon_link"><i class="fas fa-sitemap"></i><span class="icon_text">Departamentos</span></a>
                     </div>
                     <div class="nav_buttons options">
-                        <a href="jobs.php" class="icon_link active building"><i class="fas fa-briefcase active"></i><span class="icon_text active">Cargos</span></a>
+                        <a href="jobs.php?department=<?php echo $department ?>" class="icon_link active building"><i class="fas fa-briefcase active"></i><span class="icon_text active">Cargos</span></a>
                     </div>
                     <div class="nav_buttons options">
-                        <a href="employees.php" class="icon_link"><i class="fas fa-users"></i><span class="icon_text">Empleados</span></a>
+                        <a href="employees.php?department=<?php echo $department ?>" class="icon_link"><i class="fas fa-users"></i><span class="icon_text">Empleados</span></a>
                     </div>
                     <div class="nav_buttons options">
                         <a href="concepts.php" class="icon_link"><i class="fas fa-money-check"></i><span class="icon_text">Conceptos De Pago</span></a>
@@ -129,8 +129,8 @@
         <div class="alternative-menu" id="alternative-menu">
             <a href="admin.php" class="menu_link"><i class="fas fa-building"></i><span class="icon_text_alternative">Empresas</span></a>
             <a href="departments.php" class="menu_link"><i class="fas fa-sitemap"></i> <span class="icon_text_alternative">Departamentos</span></a>
-            <a href="jobs.php" class="menu_link"><i class="fas fa-briefcase"></i><span class="icon_text_alternative">Cargos</span></a>
-            <a href="employees.php" class="menu_link "><i class="fas fa-users "></i><span class="icon_text_alternative">Empleados</span></a>
+            <a href="jobs.php?department=<?php echo $department ?>" class="menu_link"><i class="fas fa-briefcase"></i><span class="icon_text_alternative">Cargos</span></a>
+            <a href="employees.php?department=<?php echo $department ?>" class="menu_link "><i class="fas fa-users "></i><span class="icon_text_alternative">Empleados</span></a>
             <a href="concepts.php" class="menu_link"><i class="fas fa-money-check"></i><span class="icon_text_alternative">Conceptos De Pago</span></a>
             <a href="payroll.php" class="menu_link"><i class="fas fa-money-check-alt"></i><span class="icon_text_alternative">Nómina</span></a>
         </div>

@@ -1,3 +1,31 @@
+<?php 
+    include("validateRoute.php"); 
+    include("db.php");
+
+    $departmentName = "";
+    $id_enterprise = "";
+    $id = ""N
+    if(isset($_GET['department'])){
+
+        $_SESSION['department'] = $_GET['department'];
+        $id = $_GET['department'];
+        $id_enterprise = $_SESSION['enterprise'];
+        $query = "SELECT * FROM employees where department_id = $id";
+        $result = $conn->query($query);
+
+        $query2 = "SELECT name FROM department where id = $id";
+        $result2 = $conn->query($query2);
+
+        if ($result2->num_rows > 0) {
+            // output data of each row
+            $row = $result2->fetch_assoc();
+            $departmentName = $row['name'];
+
+        }
+    }else{
+        header("Location: admin.php");
+    }
+?>
 <!DOCTYPE html>
 <html lang="es">
 
@@ -37,10 +65,10 @@
                         <a href="departments.php" class="icon_link"><i class="fas fa-sitemap"></i><span class="icon_text">Departamentos</span></a>
                     </div>
                     <div class="nav_buttons options">
-                        <a href="jobs.php" class="icon_link  building"><i class="fas fa-briefcase"></i><span class="icon_text">Cargos</span></a>
+                        <a href="jobs.php?department=<?php echo $id ?>" class="icon_link  building"><i class="fas fa-briefcase"></i><span class="icon_text">Cargos</span></a>
                     </div>
                     <div class="nav_buttons options">
-                        <a href="employees.php" class="icon_link active"><i class="fas fa-users active"></i><span class="icon_text active">Empleados</span></a>
+                        <a href="employees.php?department=<?php echo $id ?>" class="icon_link active"><i class="fas fa-users active"></i><span class="icon_text active">Empleados</span></a>
                     </div>
                     <div class="nav_buttons options">
                         <a href="concepts.php" class="icon_link"><i class="fas fa-money-check"></i><span class="icon_text">Conceptos De Pago</span></a>
@@ -58,8 +86,8 @@
         <div class="alternative-menu" id="alternative-menu">
             <a href="admin.php" class="menu_link"><i class="fas fa-building"></i><span class="icon_text_alternative">Empresas</span></a>
             <a href="departments.php" class="menu_link"><i class="fas fa-sitemap"></i> <span class="icon_text_alternative">Departamentos</span></a>
-            <a href="jobs.php" class="menu_link"><i class="fas fa-briefcase"></i><span class="icon_text_alternative">Cargos</span></a>
-            <a href="employees.php" class="menu_link "><i class="fas fa-users "></i><span class="icon_text_alternative">Empleados</span></a>
+            <a href="jobs.php?department=<?php echo $id ?>" class="menu_link"><i class="fas fa-briefcase"></i><span class="icon_text_alternative">Cargos</span></a>
+            <a href="employees.php?department=<?php echo $id ?>" class="menu_link "><i class="fas fa-users "></i><span class="icon_text_alternative">Empleados</span></a>
             <a href="concepts.php" class="menu_link"><i class="fas fa-money-check"></i><span class="icon_text_alternative">Conceptos De Pago</span></a>
             <a href="payroll.php" class="menu_link"><i class="fas fa-money-check-alt"></i><span class="icon_text_alternative">Nómina</span></a>
         </div>
