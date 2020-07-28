@@ -1,3 +1,121 @@
+<?php 
+  include("validateRoute.php"); 
+  include("db.php");
+
+  $enterprise = $_SESSION['enterprise'];
+  $tbody = "";
+
+  if(isset($_POST['add'])){
+    if(isset($_POST['initial']) && isset($_POST['final'])){
+      $days = (new DateTime($_POST['initial']))->diff(new DateTime($_POST['final']))->days + 1;
+
+      $query = "SELECT * FROM concepts WHERE enterprise_id = $enterprise";
+      $result = $conn->query($query);
+    
+      $conceptsNames = array();
+      $conceptspercent = array();
+      $conceptsTotals = array();
+      $count = 0;
+
+      // Getting concepts and their percents
+      if ($result->num_rows > 0) {
+        // output data of each row
+        while($row = $result->fetch_assoc()) {
+          $conceptsNames[] = $row['name'];
+          $conceptspercent[] = $row['percent'];
+          $conceptsTotals[] = 0;
+          $count++;
+        }
+      }
+
+  
+      // Getting employees data and salaries
+      $query = "SELECT 
+      employees.id as id,
+      employees.name as name,
+      hiredate,
+      dni,
+      department.name as department,
+      TRUNCATE((weekhours / 7),1) as dayhours, 
+      price_hour,
+      TRUNCATE(((weekhours / 7) * price_hour),1) as base
+      FROM employees 
+      INNER JOIN department ON employees.department_id = department.id
+      INNER JOIN enterprise ON department.enterprise_id = enterprise.id
+      INNER JOIN job ON employees.job_id = job.id WHERE enterprise.id = $enterprise";
+    
+      $result = $conn->query($query);
+
+      $thead = "<tr><th>N°</th>
+      <th>NOMBRE</th>
+      <th>IDENTIFICACIÓN</th>
+      <th>DEPARTAMENTO</th>
+      <th>FECHA DE INGRESO</th>
+      <th>COSTO HORA</th>
+      <th>HORAS DIARIAS</th>
+      <th>SUELDO BASE</th>";
+
+      for ($i=0; $i < $count ; $i++) { 
+            $thead .= "<th>".$conceptsNames[$i]."</th>";
+      }
+
+      $thead .= "<th>TOTAL CONCEPTOS</th><th>TOTAL</th></tr>";
+      
+    
+      if ($result->num_rows > 0) {
+        // output data of each row
+
+        // Totales de los totales
+        $baset = 0;
+        $percentt = 0;
+        $totalt = 0;
+        
+        while($row = $result->fetch_assoc()) {
+          $tr = "<tr><td>".$row['id']."</td>";
+          $tr .= "<td>".$row['name']."</td>";
+          $tr .= "<td>".$row['dni']."</td>";
+          $tr .= "<td>".$row['department']."</td>";
+          $tr .= "<td>".$row['hiredate']."</td>";
+          $tr .= "<td>".$row['price_hour']."</td>";
+          $tr .= "<td>".$row['dayhours']."</td>";
+          $base = $row['base'] * $days;
+          $tr .= "<td>$base</td>";
+          $baset += $base;
+          $percent = 0;
+          $total = $base;
+          for ($i=0; $i < $count ; $i++) {
+            $tr .= "<td>". $base * $conceptspercent[$i] ."</td>";
+            $percent += $base * $conceptspercent[$i];
+            $conceptsTotals[$i] += $base * $conceptspercent[$i];
+          }
+
+          $tr .= "<td>$percent</td>";
+          $percentt += $percent;
+          $total += $percent;
+          $totalt += $total;
+          $tr .= "<td>$total</td></tr>";
+
+          $tbody .= $tr;
+        
+        }
+        $tbody .= "<td></td>";
+        $tbody .= "<td>TOTAL</td>";
+        $tbody .= "<td></td>";
+        $tbody .= "<td></td>";
+        $tbody .= "<td></td>";
+        $tbody .= "<td></td>";
+        $tbody .= "<td></td>";
+        $tbody .= "<td>$baset</td>";
+        for ($i=0; $i < $count ; $i++) {
+          $tbody .= "<td>". $conceptsTotals[$i] ."</td>";
+        }
+        $tbody .= "<td>$percentt</td>";
+        $tbody .= "<td>$totalt</td>";
+      }
+    }
+  }
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,174 +126,10 @@
 </head>
 <body>
     <table> 
-        <tr>
-          <th>N°</th>
-          <th>APELLIDOS Y NOMBRES</th>
-          <th>IDENTIFICACIÓN</th>
-          <th>FECHA DE INGRESO</th>
-          <th>COSTO HORA</th>
-          <th>NÚMERO DE HORAS</th>
-          <th>SUELDO BASE</th>
-          <th>% POR ANTIGÜEDAD</th>
-          <th>TOTAL POR ANTIGÜEDAD</th>
-          <th>PRIMA POST GRADO</th>
-          <th>PRIMA POR HIJOS</th>
-          <th>TOTAL ASIGNACIONES</th>
-          <th>SUELDO INTEGRAL</th>
-          <th>IVSS</th>
-          <th>DEDUCIÓN</th>
-          <th>TOTAL RETENCIÓN Y DEDUCCIÓN</th>
-          <th>NETO A RECIBIR</th>
-          <th>1 ERA QUINCENA</th>
-          <th>2 DA QUINCENA</th>
-        </tr>
-        <tr>
-          <td>1</td>
-          <td>Acosta Manzanilla, Javier Jose</td>
-          <td>V-14.545.934</td>
-          <td>22/10/2018</td>
-          <td>4368,27</td>
-          <td>24</td>
-          <td>419.353,92</td>
-          <td>25%</td>
-          <td>104.838,48</td>
-          <td>0,00</td>
-          <td>0,00</td>
-          <td>188.709,26</td>
-          <td>608.063,18</td>
-          <td>24.322,53</td>
-          <td>0,00</td>
-          <td>33.443,48</td>
-          <td>784.296,67</td>
-          <td>392.148,33</td>
-          <td>392.148,33</td>
-        </tr>
-        <tr>
-          <td>1</td>
-          <td>Acosta Manzanilla, Javier Jose</td>
-          <td>V-14.545.934</td>
-          <td>22/10/2018</td>
-          <td>4368,27</td>
-          <td>24</td>
-          <td>419.353,92</td>
-          <td>25%</td>
-          <td>104.838,48</td>
-          <td>0,00</td>
-          <td>0,00</td>
-          <td>188.709,26</td>
-          <td>608.063,18</td>
-          <td>24.322,53</td>
-          <td>0,00</td>
-          <td>33.443,48</td>
-          <td>784.296,67</td>
-          <td>392.148,33</td>
-          <td>392.148,33</td>
-        </tr>
-        <tr>
-          <td>1</td>
-          <td>Acosta Manzanilla, Javier Jose</td>
-          <td>V-14.545.934</td>
-          <td>22/10/2018</td>
-          <td>4368,27</td>
-          <td>24</td>
-          <td>419.353,92</td>
-          <td>25%</td>
-          <td>104.838,48</td>
-          <td>0,00</td>
-          <td>0,00</td>
-          <td>188.709,26</td>
-          <td>608.063,18</td>
-          <td>24.322,53</td>
-          <td>0,00</td>
-          <td>33.443,48</td>
-          <td>784.296,67</td>
-          <td>392.148,33</td>
-          <td>392.148,33</td>
-        </tr>
-        <tr>
-          <td>1</td>
-          <td>Acosta Manzanilla, Javier Jose</td>
-          <td>V-14.545.934</td>
-          <td>22/10/2018</td>
-          <td>4368,27</td>
-          <td>24</td>
-          <td>419.353,92</td>
-          <td>25%</td>
-          <td>104.838,48</td>
-          <td>0,00</td>
-          <td>0,00</td>
-          <td>188.709,26</td>
-          <td>608.063,18</td>
-          <td>24.322,53</td>
-          <td>0,00</td>
-          <td>33.443,48</td>
-          <td>784.296,67</td>
-          <td>392.148,33</td>
-          <td>392.148,33</td>
-        </tr>
-        <tr>
-          <td>1</td>
-          <td>Acosta Manzanilla, Javier Jose</td>
-          <td>V-14.545.934</td>
-          <td>22/10/2018</td>
-          <td>4368,27</td>
-          <td>24</td>
-          <td>419.353,92</td>
-          <td>25%</td>
-          <td>104.838,48</td>
-          <td>0,00</td>
-          <td>0,00</td>
-          <td>188.709,26</td>
-          <td>608.063,18</td>
-          <td>24.322,53</td>
-          <td>0,00</td>
-          <td>33.443,48</td>
-          <td>784.296,67</td>
-          <td>392.148,33</td>
-          <td>392.148,33</td>
-        </tr>
-        <tr>
-          <td>1</td>
-          <td>Acosta Manzanilla, Javier Jose</td>
-          <td>V-14.545.934</td>
-          <td>22/10/2018</td>
-          <td>4368,27</td>
-          <td>24</td>
-          <td>419.353,92</td>
-          <td>25%</td>
-          <td>104.838,48</td>
-          <td>0,00</td>
-          <td>0,00</td>
-          <td>188.709,26</td>
-          <td>608.063,18</td>
-          <td>24.322,53</td>
-          <td>0,00</td>
-          <td>33.443,48</td>
-          <td>784.296,67</td>
-          <td>392.148,33</td>
-          <td>392.148,33</td>
-        </tr>
-        <tr>
-          <td>1</td>
-          <td>Acosta Manzanilla, Javier Jose</td>
-          <td>V-14.545.934</td>
-          <td>22/10/2018</td>
-          <td>4368,27</td>
-          <td>24</td>
-          <td>419.353,92</td>
-          <td>25%</td>
-          <td>104.838,48</td>
-          <td>0,00</td>
-          <td>0,00</td>
-          <td>188.709,26</td>
-          <td>608.063,18</td>
-          <td>24.322,53</td>
-          <td>0,00</td>
-          <td>33.443,48</td>
-          <td>784.296,67</td>
-          <td>392.148,33</td>
-          <td>392.148,33</td>
-        </tr>
-      </table>
+      <?php 
+        echo $thead;
+        echo $tbody;
+      ?>
+    </table>
 </body>
 </html>
