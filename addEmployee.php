@@ -35,7 +35,8 @@
             isset($_POST['id']) &&
             isset($_POST['born']) &&
             isset($_POST['start']) &&
-            isset($_POST['job']) 
+            isset($_POST['job']) &&
+            isset($_POST['vacation'])
         ){
             $name = $_POST['name']; 
             $last_name = $_POST['last_name']; 
@@ -43,10 +44,11 @@
             $born = $_POST['born']; 
             $start = $_POST['start']; 
             $job = $_POST['job']; 
+            $vacation = $_POST['vacation'];
 
             $enterprise = $_SESSION['enterprise'];
 
-            $query = "INSERT INTO employees(name, dni, birthdate, hiredate, department_id,job_id) VALUES ('$name $last_name', $id, '$born', '$start',  $department, $job);";
+            $query = "INSERT INTO employees(name, dni, birthdate, hiredate, department_id,job_id,vacation) VALUES ('$name $last_name', $id, '$born', '$start',  $department, $job, $vacation);";
 
             $result = $conn->query($query);
 
@@ -75,10 +77,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Admin</title>
-    <!-- {{!-- Firebase scripts --}} -->
-    <script src="https://www.gstatic.com/firebasejs/6.2.0/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/6.2.0/firebase-storage.js"></script>
+    <title>Añadir Empleado</title>
+    <link rel="icon" type="image/png" href="img/icon.png">
     <!-- {{!-- Google fonts Roboto --}} -->
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
     <!-- {{!-- Font Awesome CDN --}} -->
@@ -110,7 +110,7 @@
                         <a href="admin.php" class="icon_link building"><i class="fas fa-building"></i><span class="icon_text">Empresas</span></a>
                     </div>
                     <div class="nav_buttons options">
-                        <a href="departments.php" class="icon_link"><i class="fas fa-sitemap"></i><span class="icon_text">Departamentos</span></a>
+                        <a href="departments.php?enterprise=<?php echo $_SESSION['enterprise'] ?>" class="icon_link"><i class="fas fa-sitemap"></i><span class="icon_text">Departamentos</span></a>
                     </div>
                     <div class="nav_buttons options">
                         <a href="jobs.php?department=<?php echo $department ?>" class="icon_link  building"><i class="fas fa-briefcase"></i><span class="icon_text">Cargos</span></a>
@@ -119,10 +119,10 @@
                         <a href="employees.php?department=<?php echo $department ?>" class="icon_link active"><i class="fas fa-users active"></i><span class="icon_text active">Empleados</span></a>
                     </div>
                     <div class="nav_buttons options">
-                        <a href="concepts.php" class="icon_link"><i class="fas fa-money-check"></i><span class="icon_text">Conceptos De Pago</span></a>
+                        <a href="concepts.php?enterprise=<?php echo $_SESSION['enterprise'] ?>" class="icon_link"><i class="fas fa-money-check"></i><span class="icon_text">Conceptos De Pago</span></a>
                     </div>
                     <div class="nav_buttons options">
-                        <a href="payroll.php" class="icon_link"><i class="fas fa-money-check-alt"></i><span class="icon_text">Nómina</span></a>
+                        <a href="payroll.php?enterprise=<?php echo $_SESSION['enterprise'] ?>" class="icon_link"><i class="fas fa-money-check-alt"></i><span class="icon_text">Nómina</span></a>
                     </div>
                 </div>
 
@@ -133,11 +133,11 @@
         </nav>
         <div class="alternative-menu" id="alternative-menu">
             <a href="admin.php" class="menu_link"><i class="fas fa-building"></i><span class="icon_text_alternative">Empresas</span></a>
-            <a href="departments.php" class="menu_link"><i class="fas fa-sitemap"></i> <span class="icon_text_alternative">Departamentos</span></a>
+            <a href="departments.php" class="menu_link"><i class="fas fa-sitemap"></i> <span class="icon_text_alternative?enterprise=<?php echo $_SESSION['enterprise'] ?>">Departamentos</span></a>
             <a href="jobs.php?department=<?php echo $department ?>" class="menu_link"><i class="fas fa-briefcase"></i><span class="icon_text_alternative">Cargos</span></a>
             <a href="employees.php?department=<?php echo $department ?>" class="menu_link "><i class="fas fa-users "></i><span class="icon_text_alternative">Empleados</span></a>
-            <a href="concepts.php" class="menu_link"><i class="fas fa-money-check"></i><span class="icon_text_alternative">Conceptos De Pago</span></a>
-            <a href="payroll.php" class="menu_link"><i class="fas fa-money-check-alt"></i><span class="icon_text_alternative">Nómina</span></a>
+            <a href="concepts.php" class="menu_link"><i class="fas fa-money-check"></i><span class="icon_text_alternative?enterprise=<?php echo $_SESSION['enterprise'] ?>">Conceptos De Pago</span></a>
+            <a href="payroll.php?enterprise=<?php echo $_SESSION['enterprise'] ?>" class="menu_link"><i class="fas fa-money-check-alt"></i><span class="icon_text_alternative">Nómina</span></a>
         </div>
     </div>
 
@@ -189,6 +189,15 @@
                         </label>
                         <select name="job" id="job">
                             <?php echo $jobs ?>
+                        </select>
+                    </div>
+                    <div class="form_group section_form">
+                        <label for="vacation" class="form_group_label">
+                            Vacaciones
+                        </label>
+                        <select name="vacation" id="vacation">
+                            <option value="1">Sí</option>
+                            <option value="0">No</option>
                         </select>
                     </div>
                 </div>

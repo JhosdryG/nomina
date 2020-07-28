@@ -59,7 +59,8 @@ if (isset($_POST['add'])) {
         isset($_POST['dni']) &&
         isset($_POST['birthdate']) &&
         isset($_POST['hiredate']) &&
-        isset($_POST['job'])
+        isset($_POST['job']) &&
+        isset($_POST['vacation'])
     ) {
         $name = $_POST['name'];
         $last_name = $_POST['last-name'];
@@ -67,9 +68,10 @@ if (isset($_POST['add'])) {
         $birthdate = $_POST['birthdate'];
         $hiredate = $_POST['hiredate'];
         $job = $_POST['job'];
+        $vacation = $_POST['vacation'];
 
 
-        $query = "UPDATE employees set name = '$name $last_name', dni = $dni, birthdate = '$birthdate', hiredate = '$hiredate', job_id = '$job' WHERE id = $id;";
+        $query = "UPDATE employees set name = '$name $last_name', dni = $dni, birthdate = '$birthdate', hiredate = '$hiredate', job_id = '$job', vacation = $vacation WHERE id = $id;";
 
         $result = $conn->query($query);
 
@@ -103,10 +105,8 @@ if (isset($_POST['add'])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Admin</title>
-    <!-- {{!-- Firebase scripts --}} -->
-    <script src="https://www.gstatic.com/firebasejs/6.2.0/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/6.2.0/firebase-storage.js"></script>
+    <title>Editar Empleado</title>
+    <link rel="icon" type="image/png" href="img/icon.png">
     <!-- {{!-- Google fonts Roboto --}} -->
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
     <!-- {{!-- Font Awesome CDN --}} -->
@@ -142,10 +142,10 @@ if (isset($_POST['add'])) {
                         <a href="departments.php?enterprise=<?php echo $_SESSION['enterprise'] ?>" class="icon_link"><i class="fas fa-sitemap"></i><span class="icon_text">Departamentos</span></a>
                     </div>
                     <div class="nav_buttons options">
-                        <a href="jobs.php" class="icon_link  building"><i class="fas fa-briefcase"></i><span class="icon_text">Cargos</span></a>
+                        <a href="jobs.php?department=<?php echo $_SESSION['department'] ?>" class="icon_link  building"><i class="fas fa-briefcase"></i><span class="icon_text">Cargos</span></a>
                     </div>
                     <div class="nav_buttons options">
-                        <a href="employees.php" class="icon_link active"><i class="fas fa-users active"></i><span class="icon_text active">Empleados</span></a>
+                        <a href="employees.php?department=<?php echo $_SESSION['department'] ?>" class="icon_link active"><i class="fas fa-users active"></i><span class="icon_text active">Empleados</span></a>
                     </div>
                     <div class="nav_buttons options">
                         <a href="concepts.php?enterprise=<?php echo $_SESSION['enterprise'] ?>" class="icon_link"><i class="fas fa-money-check"></i><span class="icon_text">Conceptos De Pago</span></a>
@@ -163,8 +163,8 @@ if (isset($_POST['add'])) {
         <div class="alternative-menu" id="alternative-menu">
             <a href="admin.php" class="menu_link"><i class="fas fa-building"></i><span class="icon_text_alternative">Empresas</span></a>
             <a href="departments.php?enterprise=<?php echo $_SESSION['enterprise'] ?>" class="menu_link"><i class="fas fa-sitemap"></i> <span class="icon_text_alternative">Departamentos</span></a>
-            <a href="jobs.php" class="menu_link"><i class="fas fa-briefcase"></i><span class="icon_text_alternative">Cargos</span></a>
-            <a href="employees.php" class="menu_link "><i class="fas fa-users "></i><span class="icon_text_alternative">Empleados</span></a>
+            <a href="jobs.php?department=<?php echo $_SESSION['department'] ?>" class="menu_link"><i class="fas fa-briefcase"></i><span class="icon_text_alternative">Cargos</span></a>
+            <a href="employees.php?department=<?php echo $_SESSION['department'] ?>" class="menu_link "><i class="fas fa-users "></i><span class="icon_text_alternative">Empleados</span></a>
             <a href="concepts.php?enterprise=<?php echo $_SESSION['enterprise'] ?>" class="menu_link"><i class="fas fa-money-check"></i><span class="icon_text_alternative">Conceptos De Pago</span></a>
             <a href="payroll.php?enterprise=<?php echo $_SESSION['enterprise'] ?>" class="menu_link"><i class="fas fa-money-check-alt"></i><span class="icon_text_alternative">Nómina</span></a>
         </div>
@@ -220,8 +220,24 @@ if (isset($_POST['add'])) {
                             <?php echo $jobs ?>
                         </select>
                     </div>
+                
+                    <div class="form_group section_form">
+                            <label for="vacation" class="form_group_label">
+                                Vacaciones
+                            </label>
+                            <select name="vacation" id="vacation">
+                            <?php
+                                if ($employee['vacation'] == "1") {
+                                    echo '<option value="1" selected="selected">Sí</option>
+                                    <option value="0">No</option>';
+                                } elseif ($employee['vacation'] == "0") {
+                                    echo '<option value="1">Sí</option>
+                                    <option value="0" selected="selected">No</option>';
+                                } 
+                            ?>
+                            </select>
+                    </div>
                 </div>
-
                 <div class="button_group button_group_update form_section">
 
                     <input type="submit" name="add" value="Editar" class="button button_add" />

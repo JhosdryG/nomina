@@ -24,7 +24,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Admin</title>
+    <title>Empleados</title>
+    <link rel="icon" type="image/png" href="img/icon.png">
     <!-- {{!-- Google fonts Roboto --}} -->
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
     <!-- {{!-- Font Awesome CDN --}} -->
@@ -79,8 +80,8 @@
             <a href="departments.php" class="menu_link"><i class="fas fa-sitemap"></i> <span class="icon_text_alternative">Departamentos</span></a>
             <a href="jobs.php?department=<?php echo $id ?>" class="menu_link"><i class="fas fa-briefcase"></i><span class="icon_text_alternative">Cargos</span></a>
             <a href="employees.php?department=<?php echo $id ?>" class="menu_link "><i class="fas fa-users "></i><span class="icon_text_alternative">Empleados</span></a>
-            <a href="concepts.php" class="menu_link"><i class="fas fa-money-check"></i><span class="icon_text_alternative">Conceptos De Pago</span></a>
-            <a href="payroll.php" class="menu_link"><i class="fas fa-money-check-alt"></i><span class="icon_text_alternative">Nómina</span></a>
+            <a href="concepts.php?enterprise=<?php echo $_SESSION['enterprise'] ?>" class="menu_link"><i class="fas fa-money-check"></i><span class="icon_text_alternative">Conceptos De Pago</span></a>
+            <a href="payroll.php?enterprise=<?php echo $_SESSION['enterprise'] ?>" class="menu_link"><i class="fas fa-money-check-alt"></i><span class="icon_text_alternative">Nómina</span></a>
         </div>
     </div>
 
@@ -127,6 +128,13 @@
                                     </div>
                                     <div class="product_info_titlebox_price">
                                     <?php echo $row['job'] ?>
+                                    </div>
+                                    <div class="product_info_titlebox_price">
+                                    Vacaciones: <?php if ($row['vacation'] == 1) {
+                                        echo "Sí";
+                                    } else
+                                        echo "No";                                    
+                                    ?>
                                     </div>
                                 </div>
                             </div>
