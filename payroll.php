@@ -14,6 +14,7 @@
     <!-- {{!-- My Styles --}} -->
     <link rel="stylesheet" href="css/admin.min.css">
     <link rel="stylesheet" href="css/products.min.css">
+    <link rel="stylesheet" href="css/nomina.css">
     </body>
 </head>
 
@@ -74,27 +75,48 @@
 
         <div class="container">
 
-            <ul class="products_list">
-                <a href="nomina.php">
-                    <li class="product" onclick="location.href='/admin/product/{{@key}}?{{{../pass}}}={{{../urlHash}}}'">
-                        <div class="product_imgbox">
-
-                            <i class="product_imgbox_img fas fa-money-check-alt"></i>
-
-                        </div>
-                        <div class="product_info">
-                            <div class="product_info_titlebox">
-                                <h3 class="product_info_titlebox_title">
-                                    10-04-20 - 10-05-20
-                                </h3>
-                                <div class="product_info_titlebox_price">
-                                    100.454.123 Bs.
-                                </div>
-                            </div>
-                        </div>
-                    </li>
-                </a>
-            </ul>
+            <table>
+                <tr>
+                    <th>N</th>
+                    <th>Desde</th>
+                    <th>Hasta</th>
+                    <th>Total Base</th>
+                    <th>Total Conceptos</th>
+                    <th>Total Neto</th>
+                </tr>
+                <tr>
+                    <td>1</td>
+                    <td>2000-10-05</td>
+                    <td>2010-10-05</td>
+                    <td>1000000</td>
+                    <td>1000</td>
+                    <td>10000000</td>
+                </tr>
+                <tr>
+                    <td>1</td>
+                    <td>2000-10-05</td>
+                    <td>2010-10-05</td>
+                    <td>1000000</td>
+                    <td>1000</td>
+                    <td>10000000</td>
+                </tr>
+                <tr>
+                    <td>1</td>
+                    <td>2000-10-05</td>
+                    <td>2010-10-05</td>
+                    <td>1000000</td>
+                    <td>1000</td>
+                    <td>10000000</td>
+                </tr>
+                <tr>
+                    <td>1</td>
+                    <td>2000-10-05</td>
+                    <td>2010-10-05</td>
+                    <td>1000000</td>
+                    <td>1000</td>
+                    <td>10000000</td>
+                </tr>
+            </table>
 
         </div>
 

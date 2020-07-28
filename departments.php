@@ -107,6 +107,9 @@
                     // output data of each row
                     while($row = $result->fetch_assoc()) { ?>
                         <li class="product" onclick="location.href='jobs.php?department=<?php echo $row['id'] ?>'">
+                            <div class="product_edit_iconbox">
+                                <a href="editDepartment.php?department=<?php echo $row['id'] ?>"><i class="product_edit_iconbox_icon fas fa-pen"></i></a>
+                            </div>
                             <div class="product_imgbox">
                             <i class="product_imgbox_img fas fa-sitemap"></i>
                             </div>

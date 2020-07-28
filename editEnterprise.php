@@ -58,44 +58,6 @@
             }
         }
     }
-
-
-    // if(isset($_POST['add'])){
-        
-    //     if(
-    //         isset($_POST['name']) && 
-    //         isset($_POST['rif_l']) && 
-    //         isset($_POST['rif_n']) && 
-    //         isset($_POST['dir']) && 
-    //         isset($_POST['phone']) && 
-    //         isset($_POST['risk'])
-    //     ){
-    //         $name = $_POST['name']; 
-    //         $rif_l = $_POST['rif_l']; 
-    //         $rif_n = $_POST['rif_n']; 
-    //         $rif = $rif_l . "-" . $rif_n;
-    //         $dir = $_POST['dir']; 
-    //         $phone = $_POST['phone']; 
-    //         $risk = $_POST['risk'];
-
-    //         $query = "UPDATE enterprise set name = '$name', rif = $rif, dir = $dir, phone = $phone, risk = $risk  WHERE id = $id;";
-
-    //         $result = $conn->query($query);
-
-    //         if($result){
-    //             $created = true;
-    //             $insert_id = $conn->insert_id;
-    //         }else{
-    //             if(mysqli_errno($conn) == 1062){
-    //                 $errormsg = "YA EXISTE UNA EMPRESA CON ESE NOMBRE O RIF";
-    //             }else{
-    //                 $errormsg = "HA OCURRIDO UN ERROR INESPERADO";
-    //             }
-
-    //             $error = true;
-    //         }
-    //     }
-    // }
 ?>
 <!DOCTYPE html>
 <html lang="es">
