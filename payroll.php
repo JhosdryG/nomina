@@ -1,3 +1,31 @@
+<?php 
+    include("validateRoute.php"); 
+    include("db.php");
+
+    $tbody = "";
+
+    if(isset($_SESSION['enterprise'])){
+        $enterprise = $_SESSION['enterprise'];
+        $sql = "SELECT * FROM regnomina WHERE id_enterprise = $enterprise" ;
+        $result = $conn->query($sql);
+        
+        if ($result->num_rows > 0) {
+          // output data of each row
+          while($row = $result->fetch_assoc()) {
+            $tbody .= "<tr><td>".$row['id']."</td>";
+            $tbody .= "<td>".$row['initial']."</td>";
+            $tbody .= "<td>".$row['final']."</td>";
+            $tbody .= "<td>".$row['base']."</td>";
+            $tbody .= "<td>".$row['concepts']."</td>";
+            $tbody .= "<td>".$row['total']."</td></tr>";
+          }
+        } 
+
+    }else{
+        header("Location: admin.php");
+    }
+?>
+
 <!DOCTYPE html>
 <html lang="es">
 
@@ -84,38 +112,9 @@
                     <th>Total Conceptos</th>
                     <th>Total Neto</th>
                 </tr>
-                <tr>
-                    <td>1</td>
-                    <td>2000-10-05</td>
-                    <td>2010-10-05</td>
-                    <td>1000000</td>
-                    <td>1000</td>
-                    <td>10000000</td>
-                </tr>
-                <tr>
-                    <td>1</td>
-                    <td>2000-10-05</td>
-                    <td>2010-10-05</td>
-                    <td>1000000</td>
-                    <td>1000</td>
-                    <td>10000000</td>
-                </tr>
-                <tr>
-                    <td>1</td>
-                    <td>2000-10-05</td>
-                    <td>2010-10-05</td>
-                    <td>1000000</td>
-                    <td>1000</td>
-                    <td>10000000</td>
-                </tr>
-                <tr>
-                    <td>1</td>
-                    <td>2000-10-05</td>
-                    <td>2010-10-05</td>
-                    <td>1000000</td>
-                    <td>1000</td>
-                    <td>10000000</td>
-                </tr>
+                <?php 
+                    echo $tbody;
+                ?>
             </table>
 
         </div>
