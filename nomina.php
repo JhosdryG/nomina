@@ -7,7 +7,9 @@
 
   if(isset($_POST['add'])){
     if(isset($_POST['initial']) && isset($_POST['final'])){
-      $days = (new DateTime($_POST['initial']))->diff(new DateTime($_POST['final']))->days + 1;
+      $initial = $_POST['initial'];
+      $final = $_POST['final'];
+      $days = (new DateTime($initial))->diff(new DateTime($final))->days + 1;
 
       $query = "SELECT * FROM concepts WHERE enterprise_id = $enterprise";
       $result = $conn->query($query);
@@ -111,6 +113,16 @@
         }
         $tbody .= "<td>$percentt</td>";
         $tbody .= "<td>$totalt</td>";
+
+        $query = "INSERT INTO regnomina (initial, final, base, concepts, total, id_enterprise)
+        VALUES ('$initial', '$final', $baset, $percentt, $totalt, $enterprise)";
+        
+        if ($conn->query($query)) {
+          
+        } else {
+          echo "Error: " . $query . "<br>" . $conn->error;
+        }
+
       }
     }
   }
