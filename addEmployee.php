@@ -46,16 +46,15 @@
 
             $enterprise = $_SESSION['enterprise'];
 
-            $query = "INSERT INTO employees(name, dni, birthdate, hiredate, department_id,job_id) VALUES ('$name $last_name', $id, '$born', '$start',  $enterprise, $job);";
+            $query = "INSERT INTO employees(name, dni, birthdate, hiredate, department_id,job_id) VALUES ('$name $last_name', $id, '$born', '$start',  $department, $job);";
 
             $result = $conn->query($query);
 
             if($result){
                 $created = true;
-                $insert_id = $conn->insert_id;
             }else{
                 if(mysqli_errno($conn) == 1062){
-                    $errormsg = "YA EXISTE UN DEPARTAMENTO CON ESE NOMBRE";
+                    $errormsg = "YA EXISTE UN EMPLEADO CON ESA CEDULA";
                 }else{
                     $errormsg = "HA OCURRIDO UN ERROR INESPERADO " . mysqli_error($conn);
                 }
@@ -158,31 +157,31 @@
                         <label for="name" class="form_group_label">
                             Nombre
                         </label>
-                        <input id="name" type="text" name="name" value="" />
+                        <input id="name" type="text" name="name" value="" required/>
                     </div>
                     <div class="form_group">
                         <label for="last-name" class="form_group_label">
                             Apellido
                         </label>
-                        <input id="last_name" type="text" name="last_name" value="" />
+                        <input id="last_name" type="text" name="last_name" value="" required/>
                     </div>
                     <div class="form_group section_form">
                         <label for="id" class="form_group_label">
                             Identificación
                         </label>
-                        <input id="id" type="number" name="id" value="" />
+                        <input id="id" type="number" name="id" value="" required/>
                     </div>
                     <div class="form_group section_form">
                         <label for="born" class="form_group_label">
                             Fecha De Nacimiento
                         </label>
-                        <input id="born" type="date" name="born" value="" />
+                        <input id="born" type="date" name="born" value="" required/>
                     </div>
                     <div class="form_group section_form">
                         <label for="start" class="form_group_label">
                             Fecha De Ingreso
                         </label>
-                        <input id="start" type="date" name="start" value="" />
+                        <input id="start" type="date" name="start" value="" required/>
                     </div>
                     <div class="form_group section_form">
                         <label for="job" class="form_group_label">
@@ -210,7 +209,7 @@
                     <p class="portal_box_title">
                         Departamento creado satisfactoriamente
                     </p>
-                    <a href="jobs.php?department=<?php echo $insert_id ?>" class="portal_box_btn">Aceptar</a>
+                    <a href="jobs.php?department=<?php echo $department ?>" class="portal_box_btn">Aceptar</a>
                 </div>
             </div>
     <?php }else if($error){ ?>

@@ -10,18 +10,9 @@
         $_SESSION['department'] = $_GET['department'];
         $id = $_GET['department'];
         $id_enterprise = $_SESSION['enterprise'];
-        $query = "SELECT * FROM employees where department_id = $id";
+        $query = "SELECT *, job.name as job FROM employees INNER JOIN job ON employees.job_id = job.id where employees.department_id = $id";
         $result = $conn->query($query);
 
-        $query2 = "SELECT name FROM department where id = $id";
-        $result2 = $conn->query($query2);
-
-        if ($result2->num_rows > 0) {
-            // output data of each row
-            $row = $result2->fetch_assoc();
-            $departmentName = $row['name'];
-
-        }
     }else{
         header("Location: admin.php");
     }
@@ -111,32 +102,43 @@
         <div class="container">
 
             <ul class="products_list">
-                <a href="employees.php">
-                    <li class="product" onclick="location.href='/admin/product/{{@key}}?{{{../pass}}}={{{../urlHash}}}'">
-                        <div class="product_imgbox">
 
+            <?php 
+                if ($result->num_rows > 0) {
+                    // output data of each row
+                    while($row = $result->fetch_assoc()) { ?>
+                        <li class="product" onclick="location.href='editEmployee.php?employee=<?php echo $row['id'] ?>'">
+                            <div class="product_imgbox">
                             <i class="product_imgbox_img fas fa-users"></i>
-
-                        </div>
-                        <div class="product_info">
-                            <div class="product_info_titlebox">
-                                <h3 class="product_info_titlebox_title">
-                                    Alejandro Gonzalez
-                                </h3>
-                                <div class="product_info_titlebox_price">
-                                    V-27849217
-                                </div>
-                                <div class="product_info_titlebox_price">
-                                    Ingresó 10-10-2000
-                                </div>
-                                <div class="product_info_titlebox_price">
-                                    Programador
+                            </div>
+                            <div class="product_info">
+                                <div class="product_info_titlebox">
+                                    <h3 class="product_info_titlebox_title">
+                                        <?php echo $row['name'] ?>
+                                    </h3>
+                                    <div class="product_info_titlebox_price">
+                                        V-<?php echo $row['dni'] ?>
+                                    </div>
+                                    <div class="product_info_titlebox_price">
+                                    Ingresó <?php echo $row['hiredate'] ?>
+                                    </div>
+                                    <div class="product_info_titlebox_price">
+                                    <?php echo $row['hiredate'] ?>
+                                    </div>
+                                    <div class="product_info_titlebox_price">
+                                    <?php echo $row['job'] ?>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    </li>
-                </a>
-            </ul>
+                        </li>
+                    
+                    <?php }
+                    echo "</ul>";
+                } else {
+                    echo "</ul>";
+                    echo "<h2>No se han encontrado resultados</h2>";
+                } ?>
+            
 
         </div>
 
