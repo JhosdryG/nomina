@@ -110,7 +110,7 @@ if (isset($_POST['add'])) {
     <main class="main">
         <div class="container">
 
-            <form class="form" method="POST" action="addDepartment.php">
+            <form class="form" method="POST" action="nomina.php">
 
                 <div class="form_section section_form">
                     <div class="form_group">
