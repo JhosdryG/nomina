@@ -73,8 +73,7 @@
             Pulsa "Agregar Departamento"
         </h2> -->
 
-        <div class="container">
-
+        <div class="table">
             <table>
                 <tr>
                     <th>N</th>
@@ -117,7 +116,6 @@
                     <td>10000000</td>
                 </tr>
             </table>
-
         </div>
 
     </main>
