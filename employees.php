@@ -71,10 +71,10 @@
                         <a href="employees.php?department=<?php echo $id ?>" class="icon_link active"><i class="fas fa-users active"></i><span class="icon_text active">Empleados</span></a>
                     </div>
                     <div class="nav_buttons options">
-                        <a href="concepts.php" class="icon_link"><i class="fas fa-money-check"></i><span class="icon_text">Conceptos De Pago</span></a>
+                        <a href="concepts.php?enterprise=<?php echo $_SESSION['enterprise'] ?>" class="icon_link"><i class="fas fa-money-check"></i><span class="icon_text">Conceptos De Pago</span></a>
                     </div>
                     <div class="nav_buttons options">
-                        <a href="payroll.php" class="icon_link"><i class="fas fa-money-check-alt"></i><span class="icon_text">Nómina</span></a>
+                        <a href="payroll.php?enterprise=<?php echo $_SESSION['enterprise'] ?>" class="icon_link"><i class="fas fa-money-check-alt"></i><span class="icon_text">Nómina</span></a>
                     </div>
                 </div>
 

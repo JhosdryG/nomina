@@ -1,3 +1,19 @@
+<?php
+include("validateRoute.php");
+include("db.php");
+
+$id_enterprise = "";
+
+if (isset($_GET['enterprise'])) {
+
+    $id_enterprise = $_SESSION['enterprise'];
+    $query = "SELECT * FROM concepts where enterprise_id = $id_enterprise";
+    $result = $conn->query($query);
+} else {
+    header("Location: admin.php");
+}
+?>
+
 <!DOCTYPE html>
 <html lang="es">
 
@@ -37,10 +53,10 @@
                         <a href="departments.php" class="icon_link"><i class="fas fa-sitemap"></i><span class="icon_text">Departamentos</span></a>
                     </div>
                     <div class="nav_buttons options">
-                        <a href="concepts.php" class="icon_link active"><i class="fas fa-money-check active"></i><span class="icon_text active">Conceptos De Pago</span></a>
+                        <a href="concepts.php?enterprise=<?php echo $_SESSION['enterprise'] ?>" class="icon_link active"><i class="fas fa-money-check active"></i><span class="icon_text active">Conceptos De Pago</span></a>
                     </div>
                     <div class="nav_buttons options">
-                        <a href="payroll.php" class="icon_link"><i class="fas fa-money-check-alt"></i><span class="icon_text">Nómina</span></a>
+                        <a href="payroll.php?enterprise=<?php echo $_SESSION['enterprise'] ?>" class="icon_link"><i class="fas fa-money-check-alt"></i><span class="icon_text">Nómina</span></a>
                     </div>
                 </div>
 
@@ -52,8 +68,8 @@
         <div class="alternative-menu" id="alternative-menu">
             <a href="admin.php" class="menu_link"><i class="fas fa-building"></i><span class="icon_text_alternative">Empresas</span></a>
             <a href="departments.php" class="menu_link"><i class="fas fa-sitemap"></i> <span class="icon_text_alternative">Departamentos</span></a>
-            <a href="concepts.php" class="menu_link"><i class="fas fa-money-check"></i><span class="icon_text_alternative">Conceptos De Pago</span></a>
-            <a href="payroll.php" class="menu_link"><i class="fas fa-money-check-alt"></i><span class="icon_text_alternative">Nómina</span></a>
+            <a href="concepts.php?enterprise=<?php echo $_SESSION['enterprise'] ?>" class="menu_link"><i class="fas fa-money-check"></i><span class="icon_text_alternative">Conceptos De Pago</span></a>
+            <a href="payroll.php?enterprise=<?php echo $_SESSION['enterprise'] ?>" class="menu_link"><i class="fas fa-money-check-alt"></i><span class="icon_text_alternative">Nómina</span></a>
         </div>
     </div>
 
@@ -75,29 +91,47 @@
         <div class="container">
 
             <ul class="products_list">
-                <a href="jobs.php">
-                    <li class="product" onclick="location.href='/admin/product/{{@key}}?{{{../pass}}}={{{../urlHash}}}'">
-                        <div class="product_imgbox">
+                <?php
+                if ($result->num_rows > 0) {
+                    // output data of each row
+                    while ($row = $result->fetch_assoc()) { ?>
+                        <li class="product" onclick="location.href='editconcept.php?concept=<?php echo $row['id'] ?>'">
+                            <div class="product_imgbox">
+                                <i class="product_imgbox_img fas fa-money-check"></i>
+                            </div>
+                            <div class="product_info">
+                                <div class="product_info_titlebox">
+                                    <h3 class="product_info_titlebox_title">
+                                        <?php echo $row['name'] ?>
+                                    </h3>
+                                    <div class="product_info_titlebox_price">
+                                        <?php
 
-                            <i class="product_imgbox_img fas fa-money-check"></i>
+                                        echo "Tipo: ";
 
-                        </div>
-                        <div class="product_info">
-                            <div class="product_info_titlebox">
-                                <h3 class="product_info_titlebox_title">
-                                    Antiguedad
-                                </h3>
-                                <div class="product_info_titlebox_price">
-                                    Asignación
-                                </div>
-                                <div class="product_info_titlebox_price">
-                                    10%
+                                        if ($row['type'] == 1)
+                                            echo "Asignación";
+
+                                        else
+                                            echo "Dedución";
+
+                                        ?>
+
+                                    </div>
+                                    <div class="product_info_titlebox_price">
+                                    <?php echo "Porcentaje:"  ?>
+                                        <?php echo $row['percent'] * 100  ?>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    </li>
-                </a>
-            </ul>
+                        </li>
+
+                <?php }
+                    echo "</ul>";
+                } else {
+                    echo "</ul>";
+                    echo "<h2>No se han encontrado resultados</h2>";
+                } ?>
 
         </div>
 

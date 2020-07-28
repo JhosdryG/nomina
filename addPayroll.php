@@ -1,38 +1,36 @@
-<?php 
-    include("validateRoute.php"); 
-    include("db.php");
+<?php
+include("validateRoute.php");
+include("db.php");
 
-    $created = false;
-    $error = false;
-    $errormsg = "";
-    $insert_id = "";
+$created = false;
+$error = false;
+$errormsg = "";
+$insert_id = "";
 
-    if(isset($_POST['add'])){
-        
-        if(isset($_POST['name'])){
-            $name = $_POST['name'];
-            $type = $_POST['type'];
-            $percent = $_POST['percent'] / 100; 
-            $enterprise = $_SESSION['enterprise'];
+if (isset($_POST['add'])) {
 
-            $query = "INSERT INTO concepts(name,type,percent,enterprise_id) VALUES ('$name',$type,$percent,$enterprise);";
+    if (isset($_POST['name'])) {
+        $name = $_POST['name'];
+        $enterprise = $_SESSION['enterprise'];
 
-            $result = $conn->query($query);
+        $query = "INSERT INTO department(name,enterprise_id) VALUES ('$name',$enterprise);";
 
-            if($result){
-                $created = true;
-                $insert_id = $conn->insert_id;
-            }else{
-                if(mysqli_errno($conn) == 1062){
-                    $errormsg = "YA EXISTE UN CONCEPTO DE PAGO CON ESE NOMBRE";
-                }else{
-                    $errormsg = "HA OCURRIDO UN ERROR INESPERADO " . mysqli_error($conn);
-                }
+        $result = $conn->query($query);
 
-                $error = true;
+        if ($result) {
+            $created = true;
+            $insert_id = $conn->insert_id;
+        } else {
+            if (mysqli_errno($conn) == 1062) {
+                $errormsg = "YA EXISTE UN DEPARTAMENTO CON ESE NOMBRE";
+            } else {
+                $errormsg = "HA OCURRIDO UN ERROR INESPERADO " . mysqli_error($conn);
             }
+
+            $error = true;
         }
     }
+}
 
 
 ?>
@@ -57,7 +55,7 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
     <!-- {{!-- My Styles --}} -->
     <link rel="stylesheet" href="css/admin.min.css">
-    <link rel="stylesheet" href="css/add_product.min.css"> 
+    <link rel="stylesheet" href="css/add_product.min.css">
     <link rel="stylesheet" href="css/msgportal.min.css">
 
     </body>
@@ -83,10 +81,10 @@
                         <a href="departments.php?enterprise=<?php echo $_SESSION['enterprise'] ?>" class="icon_link"><i class="fas fa-sitemap"></i><span class="icon_text">Departamentos</span></a>
                     </div>
                     <div class="nav_buttons options">
-                        <a href="concepts.php?enterprise=<?php echo $_SESSION['enterprise'] ?>" class="icon_link active"><i class="fas fa-money-check active"></i><span class="icon_text active">Conceptos De Pago</span></a>
+                        <a href="concepts.php?enterprise=<?php echo $_SESSION['enterprise'] ?>" class="icon_link"><i class="fas fa-money-check "></i><span class="icon_text">Conceptos De Pago</span></a>
                     </div>
                     <div class="nav_buttons options">
-                        <a href="payroll.php?enterprise=<?php echo $_SESSION['enterprise'] ?>" class="icon_link"><i class="fas fa-money-check-alt"></i><span class="icon_text">Nómina</span></a>
+                        <a href="payroll.php?enterprise=<?php echo $_SESSION['enterprise'] ?>" class="icon_link active"><i class="fas fa-money-check-alt active"></i><span class="icon_text active">Nómina</span></a>
                     </div>
                 </div>
 
@@ -105,74 +103,68 @@
 
     <header class="header">
         <div class="container">
-            <h2>Añadir Concepto De Pago</h2>
+            <h2>Calcular Nómina</h2>
         </div>
     </header>
 
     <main class="main">
         <div class="container">
 
-            <form class="form" method="POST" action="addConcept.php">
+            <form class="form" method="POST" action="addDepartment.php">
 
                 <div class="form_section section_form">
                     <div class="form_group">
-                        <label for="name" class="form_group_label">
-                            Nombre
+                        <label for="initial" class="form_group_label">
+                            Desde
                         </label>
-                        <input id="name" type="text" name="name" value="" />
+                        <input id="initial" type="date" name="initial" value="" />
                     </div>
-                    <div class="form_group section_form">
-                        <label for="type" class="form_group_label">
-                            Tipo
+
+                    <div class="form_group">
+                        <label for="final" class="form_group_label">
+                            Hasta
                         </label>
-                        <select name="type" id="type">
-                            <option value="1">Asignaciones</option>
-                            <option value="0">Deducciones</option>
-                        </select>
-                    </div>
-                    <div class="form_group section_form">
-                        <label for="percent" class="form_group_label">
-                            Porcentaje (1 - 100)
-                        </label>
-                        <input id="percent" type="number" name="percent" value="" />
+                        <input id="final" type="date" name="final" value="" />
                     </div>
                 </div>
 
                 <div class="button_group form_section">
 
-                <input type="submit" name="add" value="Agregar" class="button button_add"/>
-                    <a href="concepts.php" class="button button_back">Volver</a>
+                    <input type="submit" name="add" value="Calcular" class="button button_add" />
+                    <a href="payroll.php" class="button button_back">Volver</a>
                 </div>
             </form>
         </div>
     </main>
-    <?php 
-        if($created){ ?>
-            <div class="portal">
-                <div class="portal_box">
-                    <p class="portal_box_title">
-                        Concepto de pago creado satisfactoriamente
-                    </p>
-                    <a href="concepts.php?enterprise=<?php echo $insert_id ?>" class="portal_box_btn">Aceptar</a>
-                </div>
+    <?php
+    if ($created) { ?>
+        <div class="portal">
+            <div class="portal_box">
+                <p class="portal_box_title">
+                    Departamento creado satisfactoriamente
+                </p>
+                <a href="jobs.php?department=<?php echo $insert_id ?>" class="portal_box_btn">Aceptar</a>
             </div>
-    <?php }else if($error){ ?>
+        </div>
+    <?php } else if ($error) { ?>
 
         <div class="portal" id="errorportal">
-                <div class="portal_box">
-                    <p class="portal_box_title">
-                        <?php echo $errormsg ?>
-                    </p>
-                    <button id="closeportal" class="portal_box_btn">Aceptar</button>
-                </div>
+            <div class="portal_box">
+                <p class="portal_box_title">
+                    <?php echo $errormsg ?>
+                </p>
+                <button id="closeportal" class="portal_box_btn">Aceptar</button>
             </div>
+        </div>
 
     <?php } ?>
     <script src="scripts/adminMenu.js"></script>
     <script>
         let portal = document.getElementById("errorportal");
-        let btn = document.getElementById("closeportal").addEventListener('click',()=>{
+        let btn = document.getElementById("closeportal").addEventListener('click', () => {
             portal.classList.toggle("hide");
         });
     </script>
 </body>
+
+</html>

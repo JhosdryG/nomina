@@ -63,7 +63,7 @@
                 <h2 class="enterprise">Devsktop</h1>
                     <h2 class="department">Nómina</h2>
             </div>
-            <a id="addProduct" href="addConcept.php"><i class="fas fa-plus"></i> Calcular Nómina</a>
+            <a id="addProduct" href="addPayroll.php"><i class="fas fa-plus"></i> Calcular Nómina</a>
         </div>
     </header>
 
@@ -75,23 +75,20 @@
         <div class="container">
 
             <ul class="products_list">
-                <a href="jobs.php">
+                <a href="nomina.php">
                     <li class="product" onclick="location.href='/admin/product/{{@key}}?{{{../pass}}}={{{../urlHash}}}'">
                         <div class="product_imgbox">
 
-                            <i class="product_imgbox_img fas fa-money-check"></i>
+                            <i class="product_imgbox_img fas fa-money-check-alt"></i>
 
                         </div>
                         <div class="product_info">
                             <div class="product_info_titlebox">
                                 <h3 class="product_info_titlebox_title">
-                                    Antiguedad
+                                    10-04-20 - 10-05-20
                                 </h3>
                                 <div class="product_info_titlebox_price">
-                                    Asignación
-                                </div>
-                                <div class="product_info_titlebox_price">
-                                    10%
+                                    100.454.123 Bs.
                                 </div>
                             </div>
                         </div>
