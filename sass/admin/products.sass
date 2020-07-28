@@ -16,9 +16,20 @@
         border-radius: 10px
         cursor: pointer
         transition: all .4s ease-out
+        position: relative
         &:hover
             transform: scale(1.01)
             background: $secondary
+
+        &_edit_iconbox 
+            position: absolute
+            right: 25px
+
+            &_icon
+                color: $primary-light
+                font-size: 20px
+                &:hover
+                    color: $secondary-light
 
         &_imgbox_img
             font-size: 100px

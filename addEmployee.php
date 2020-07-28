@@ -207,9 +207,9 @@
             <div class="portal">
                 <div class="portal_box">
                     <p class="portal_box_title">
-                        Departamento creado satisfactoriamente
+                        Empleado creado satisfactoriamente
                     </p>
-                    <a href="jobs.php?department=<?php echo $department ?>" class="portal_box_btn">Aceptar</a>
+                    <a href="employees.php?department=<?php echo $department ?>" class="portal_box_btn">Aceptar</a>
                 </div>
             </div>
     <?php }else if($error){ ?>

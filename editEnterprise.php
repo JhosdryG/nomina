@@ -7,16 +7,32 @@
     $errormsg = "";
     $insert_id = "";
 
-    if(isset($_POST['add'])){
-        
-        if(
+    $id = "";
+    $row = "";
+
+    if (isset($_GET['enterprise'])) {
+        $id = $_GET['enterprise'];
+        $query = "SELECT * FROM enterprise WHERE id = $id";
+        $result = $conn->query($query);
+
+        if ($result) {
+            $row = $result->fetch_assoc();
+            $rif = $row['rif'];
+            $rif = explode("-", $rif);
+        }
+    }
+
+
+    if (isset($_POST['add'])) {
+
+        if (
             isset($_POST['name']) && 
-            isset($_POST['rif_l']) && 
-            isset($_POST['rif_n']) && 
-            isset($_POST['dir']) && 
-            isset($_POST['phone']) && 
-            isset($_POST['risk'])
-        ){
+             isset($_POST['rif_l']) && 
+             isset($_POST['rif_n']) && 
+             isset($_POST['dir']) && 
+             isset($_POST['phone']) && 
+             isset($_POST['risk'])
+        ) {
             $name = $_POST['name']; 
             $rif_l = $_POST['rif_l']; 
             $rif_n = $_POST['rif_n']; 
@@ -24,27 +40,62 @@
             $dir = $_POST['dir']; 
             $phone = $_POST['phone']; 
             $risk = $_POST['risk'];
-
-            $query = "INSERT INTO enterprise(name, rif, dir, phone, risk ) VALUES ('$name','$rif','$dir','$phone',$risk)";
-
+    
+            $query = "UPDATE enterprise set name = '$name', rif = '$rif', dir = '$dir', phone = '$phone', risk = $risk WHERE id = $id;";
+    
             $result = $conn->query($query);
-
-            if($result){
+    
+            if ($result) {
                 $created = true;
-                $insert_id = $conn->insert_id;
-            }else{
-                if(mysqli_errno($conn) == 1062){
+            } else {
+                if (mysqli_errno($conn) == 1062) {
                     $errormsg = "YA EXISTE UNA EMPRESA CON ESE NOMBRE O RIF";
-                }else{
-                    $errormsg = "HA OCURRIDO UN ERROR INESPERADO";
+                } else {
+                    $errormsg = "HA OCURRIDO UN ERROR INESPERADO " . mysqli_errno($conn);
                 }
-
+    
                 $error = true;
             }
         }
     }
 
 
+    // if(isset($_POST['add'])){
+        
+    //     if(
+    //         isset($_POST['name']) && 
+    //         isset($_POST['rif_l']) && 
+    //         isset($_POST['rif_n']) && 
+    //         isset($_POST['dir']) && 
+    //         isset($_POST['phone']) && 
+    //         isset($_POST['risk'])
+    //     ){
+    //         $name = $_POST['name']; 
+    //         $rif_l = $_POST['rif_l']; 
+    //         $rif_n = $_POST['rif_n']; 
+    //         $rif = $rif_l . "-" . $rif_n;
+    //         $dir = $_POST['dir']; 
+    //         $phone = $_POST['phone']; 
+    //         $risk = $_POST['risk'];
+
+    //         $query = "UPDATE enterprise set name = '$name', rif = $rif, dir = $dir, phone = $phone, risk = $risk  WHERE id = $id;";
+
+    //         $result = $conn->query($query);
+
+    //         if($result){
+    //             $created = true;
+    //             $insert_id = $conn->insert_id;
+    //         }else{
+    //             if(mysqli_errno($conn) == 1062){
+    //                 $errormsg = "YA EXISTE UNA EMPRESA CON ESE NOMBRE O RIF";
+    //             }else{
+    //                 $errormsg = "HA OCURRIDO UN ERROR INESPERADO";
+    //             }
+
+    //             $error = true;
+    //         }
+    //     }
+    // }
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -105,59 +156,100 @@
     <main class="main">
         <div class="container">
 
-            <form class="form" method="POST" action="addEnterprise.php">
+            <form class="form" method="POST" action="editEnterprise.php?enterprise=<?php echo $id ?>">
                
                 <div class="form_section section_form">
                     <div class="form_group">
-                        <label for="" class="form_group_label">
+                        <label for="name" class="form_group_label">
                             Nombre
                         </label>
-                        <input id="title" type="text" name="name" value=""/>
+                        <input id="name" type="text" name="name" value="<?php echo $row['name'] ?>"/>
                     </div>
                     <div class="form_group">
-                        <label for="" class="form_group_label">
+                        <label for="dir" class="form_group_label">
                             Dirección
                         </label>
-                        <input id="title" type="text" name="dir" value=""/>
+                        <input id="dir" type="text" name="dir" value="<?php echo $row['dir'] ?>"/>
                     </div>
 
                     <div class="form_group section_form">
-                        <label for="" class="form_group_label">
+                        <label for="rif" class="form_group_label">
                             Rif
                         </label>
                         <div class="rif">
-                            <select name="rif_l" id="riesgo">
-                                <option value="V">V</option>
-                                <option value="E">E</option>
-                                <option value="P">P</option>
-                                <option value="J">J</option>
-                                <option value="G">G</option>
+                            <select name="rif_l" id="rif_l">
+                
+                            <?php
+                                if ($rif[0] == "V") {
+                                    echo '<option value="V" selected="selected">V</option>
+                                        <option value="E">E</option>
+                                        <option value="P">P</option>
+                                        <option value="J">J</option>
+                                        <option value="G">G</option>';
+                                } elseif ($rif[0] == "E") {
+                                    echo '<option value="V">V</option>
+                                        <option value="E" selected="selected">E</option>
+                                        <option value="P">P</option>
+                                        <option value="J">J</option>
+                                        <option value="G">G</option>';
+                                } elseif ($rif[0] == "P") {
+                                    echo '<option value="V">V</option>
+                                        <option value="E">E</option>
+                                        <option value="P" selected="selected">P</option>
+                                        <option value="J">J</option>
+                                        <option value="G">G</option>';
+                                } elseif ($rif[0] == "J") {
+                                    echo '<option value="V">V</option>
+                                        <option value="E">E</option>
+                                        <option value="P">P</option>
+                                        <option value="J" selected="selected">J</option>
+                                        <option value="G">G</option>';
+                                } elseif ($rif[0] == "G") {
+                                    echo '<option value="V">V</option>
+                                        <option value="E">E</option>
+                                        <option value="P">P</option>
+                                        <option value="J">J</option>
+                                        <option value="G" selected="selected">G</option>';
+                                }
+                            ?>
                             </select>
-                            <input id="detailPrice" type="number" name="rif_n" value=""/>
+                            <input id="rif_n" type="number" name="rif_n" value="<?php echo $rif[1] ?>"/>
                         </div>
                     </div>
                     <div class="form_group">
-                        <label for="" class="form_group_label">
+                        <label for="phone" class="form_group_label">
                             Teléfono
                         </label>
-                        <input id="bigPrice" type="number" name="phone" value=""/>
+                        <input id="phone" type="number" name="phone" value="<?php echo $row['phone'] ?>"/>
                     </div>
                     <div class="form_group">
-                        <label for="riesgo" class="form_group_label">
+                        <label for="risk" class="form_group_label">
                             Porcentaje de riesgo
                         </label>
-                        <select name="risk" id="riesgo">
-                            <option value="0.09">9%</option>
-                            <option value="0.10">10%</option>
-                            <option value="0.11">11%</option>
+                        <select name="risk" id="risk">
+                        <?php
+                                if ($row['risk'] == "0.09") {
+                                    echo '<option value="0.09" selected="selected">9%</option>
+                                    <option value="0.10">10%</option>
+                                    <option value="0.11">11%</option>';
+                                } elseif ($row['risk'] == "0.10") {
+                                    echo '<option value="0.09">9%</option>
+                                    <option value="0.10" selected="selected">10%</option>
+                                    <option value="0.11">11%</option>';
+                                } elseif ($row['risk'] == "0.11") {
+                                    echo '<option value="0.09">9%</option>
+                                    <option value="0.10">10%</option>
+                                    <option value="0.11" selected="selected">11%</option>';
+                                }
+                            ?>
                         </select>
                     </div>
                 </div>
                 
                 <div class="button_group button_group_update form_section">
-                    <input type="submit" value="Agregar" class="button button_add" name="add" />
+                    <input type="submit" name="add" value="Editar" class="button button_add" />
                     <a href="admin.php" class="button button_back">Volver</a>
-                    <a href="admin.php" class="button button_delete">Eliminar</a>
+                    <a href="deleteEnterprise.php?enterprise=<?php echo $id ?>" class="button button_delete">Eliminar</a>
                 </div>
             </form>
         </div>
@@ -168,9 +260,9 @@
             <div class="portal">
                 <div class="portal_box">
                     <p class="portal_box_title">
-                        Producto creado satisfactoriamente
+                        Empresa modificada satisfactoriamente
                     </p>
-                    <a href="departments.php?enterprise=<?php echo $insert_id ?>" class="portal_box_btn">Aceptar</a>
+                    <a href="departments.php?enterprise=<?php echo $id ?>" class="portal_box_btn">Aceptar</a>
                 </div>
             </div>
     <?php }else if($error){ ?>

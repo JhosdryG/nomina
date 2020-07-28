@@ -10,7 +10,7 @@
         $_SESSION['department'] = $_GET['department'];
         $id = $_GET['department'];
         $id_enterprise = $_SESSION['enterprise'];
-        $query = "SELECT *, job.name as job FROM employees INNER JOIN job ON employees.job_id = job.id where employees.department_id = $id";
+        $query = "SELECT *, employees.id as eid, employees.name as ename, job.name as job FROM employees INNER JOIN job ON employees.job_id = job.id where employees.department_id = $id";
         $result = $conn->query($query);
 
     }else{
@@ -107,14 +107,14 @@
                 if ($result->num_rows > 0) {
                     // output data of each row
                     while($row = $result->fetch_assoc()) { ?>
-                        <li class="product" onclick="location.href='editEmployee.php?employee=<?php echo $row['id'] ?>'">
+                        <li class="product" onclick="location.href='editEmployee.php?employee=<?php echo $row['eid'] ?>'">
                             <div class="product_imgbox">
                             <i class="product_imgbox_img fas fa-users"></i>
                             </div>
                             <div class="product_info">
                                 <div class="product_info_titlebox">
                                     <h3 class="product_info_titlebox_title">
-                                        <?php echo $row['name'] ?>
+                                        <?php echo $row['ename'] ?>
                                     </h3>
                                     <div class="product_info_titlebox_price">
                                         V-<?php echo $row['dni'] ?>

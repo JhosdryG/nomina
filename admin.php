@@ -1,10 +1,10 @@
-<?php 
-    include("validateRoute.php"); 
-    include("db.php");
+<?php
+include("validateRoute.php");
+include("db.php");
 
-    $query = "SELECT * FROM enterprise";
-    $result = $conn->query($query);
-    
+$query = "SELECT * FROM enterprise";
+$result = $conn->query($query);
+
 ?>
 
 <!DOCTYPE html>
@@ -53,7 +53,7 @@
     <header class="header">
         <div class="container">
             <h2>Empresas</h2>
-            <a id="addProduct" href="addEnterprise.php"><i class="fas fa-plus"></i>  Agregar Empresa</a>
+            <a id="addProduct" href="addEnterprise.php"><i class="fas fa-plus"></i> Agregar Empresa</a>
         </div>
     </header>
 
@@ -66,35 +66,38 @@
 
             <ul class="products_list">
 
-            <?php 
+                <?php
                 if ($result->num_rows > 0) {
                     // output data of each row
-                    while($row = $result->fetch_assoc()) { ?>
+                    while ($row = $result->fetch_assoc()) { ?>
                         <li class="product" onclick="location.href='departments.php?enterprise=<?php echo $row['id'] ?>'">
+                            <div class="product_edit_iconbox">
+                                <a href="editEnterprise.php?enterprise=<?php echo $row['id'] ?>"><i class="product_edit_iconbox_icon fas fa-pen"></i></a>
+                            </div>
                             <div class="product_imgbox">
                                 <i class="product_imgbox_img fas fa-building"></i>
                             </div>
                             <div class="product_info">
                                 <div class="product_info_titlebox">
                                     <h3 class="product_info_titlebox_title">
-                                    <?php echo $row['name'] ?>
+                                        <?php echo $row['name'] ?>
                                     </h3>
                                     <div class="product_info_titlebox_price">
-                                    <?php echo $row['rif'] ?>
+                                        <?php echo $row['rif'] ?>
                                     </div>
                                 </div>
                             </div>
                         </li>
-                    
-                    <?php }
+
+                <?php }
                     echo "</ul>";
                 } else {
                     echo "</ul>";
                     echo "<h2>No se han encontrado resultados</h2>";
                 }
                 ?>
-                
-            
+
+
 
         </div>
 

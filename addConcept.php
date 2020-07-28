@@ -15,6 +15,10 @@
             $percent = $_POST['percent'] / 100; 
             $enterprise = $_SESSION['enterprise'];
 
+            if ($type == 0) {
+                $percent *= -1;
+            }
+
             $query = "INSERT INTO concepts(name,type,percent,enterprise_id) VALUES ('$name',$type,$percent,$enterprise);";
 
             $result = $conn->query($query);
