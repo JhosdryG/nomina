@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 28-07-2020 a las 10:42:49
+-- Tiempo de generación: 28-07-2020 a las 12:26:26
 -- Versión del servidor: 10.4.6-MariaDB
 -- Versión de PHP: 7.3.9
 
@@ -57,17 +57,6 @@ CREATE TABLE `department` (
   `enterprise_id` int(10) UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
---
--- Volcado de datos para la tabla `department`
---
-
-INSERT INTO `department` (`id`, `name`, `enterprise_id`) VALUES
-(1, 'informatica', 4),
-(2, 'Obreros', 4),
-(3, 'Administracion', 18),
-(4, 'Obrero', 18),
-(5, 'departamento 8', 20);
-
 -- --------------------------------------------------------
 
 --
@@ -80,19 +69,10 @@ CREATE TABLE `employees` (
   `dni` varchar(45) NOT NULL,
   `birthdate` date NOT NULL,
   `hiredate` date NOT NULL,
+  `vacation` tinyint(1) NOT NULL,
   `department_id` int(11) NOT NULL,
   `job_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Volcado de datos para la tabla `employees`
---
-
-INSERT INTO `employees` (`id`, `name`, `dni`, `birthdate`, `hiredate`, `department_id`, `job_id`) VALUES
-(9, 'Jhoseph Guerrero', '1546', '2020-07-14', '2020-07-06', 1, 6),
-(10, 'Jhoseph asdasd', '626', '2020-07-14', '2020-07-08', 1, 6),
-(11, 'devsktop asdasd', '3', '2020-07-15', '2020-07-07', 3, 7),
-(12, 'ozuna Gonzalo', '456465', '2020-07-17', '2020-07-09', 5, 8);
 
 -- --------------------------------------------------------
 
@@ -136,15 +116,29 @@ CREATE TABLE `job` (
   `department_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+-- --------------------------------------------------------
+
 --
--- Volcado de datos para la tabla `job`
+-- Estructura de tabla para la tabla `regnomina`
 --
 
-INSERT INTO `job` (`id`, `name`, `weekhours`, `price_hour`, `department_id`) VALUES
-(5, 'Limpieza', 45, '50000.00', 2),
-(6, 'ozuna', 45, '60000.00', 1),
-(7, 'Adminis', 45, '50.00', 3),
-(8, 'cargo axctivo', 30, '10000.00', 5);
+CREATE TABLE `regnomina` (
+  `id` int(11) NOT NULL,
+  `initial` date NOT NULL,
+  `final` date NOT NULL,
+  `base` double(15,2) NOT NULL,
+  `concepts` double(15,2) NOT NULL,
+  `total` decimal(15,2) NOT NULL,
+  `id_enterprise` int(10) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Volcado de datos para la tabla `regnomina`
+--
+
+INSERT INTO `regnomina` (`id`, `initial`, `final`, `base`, `concepts`, `total`, `id_enterprise`) VALUES
+(1, '2020-07-16', '2020-07-24', 6942855.60, 7637141.16, '14579996.76', 4),
+(2, '2020-07-10', '2020-07-04', 5399998.80, 5939998.68, '11339997.48', 4);
 
 -- --------------------------------------------------------
 
@@ -216,6 +210,12 @@ ALTER TABLE `job`
   ADD KEY `fk_job_department1_idx` (`department_id`);
 
 --
+-- Indices de la tabla `regnomina`
+--
+ALTER TABLE `regnomina`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indices de la tabla `users`
 --
 ALTER TABLE `users`
@@ -257,6 +257,12 @@ ALTER TABLE `job`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
+-- AUTO_INCREMENT de la tabla `regnomina`
+--
+ALTER TABLE `regnomina`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
 -- AUTO_INCREMENT de la tabla `users`
 --
 ALTER TABLE `users`
@@ -282,7 +288,7 @@ ALTER TABLE `department`
 -- Filtros para la tabla `employees`
 --
 ALTER TABLE `employees`
-  ADD CONSTRAINT `fk_employees_department1` FOREIGN KEY (`department_id`) REFERENCES `department` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_employees_department1` FOREIGN KEY (`department_id`) REFERENCES `department` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `fk_employees_job1` FOREIGN KEY (`job_id`) REFERENCES `job` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION;
 
 --
