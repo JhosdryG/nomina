@@ -1,13 +1,34 @@
 table, th, td {
-    border: 1px solid black;
     border-collapse: collapse;
     text-align: center;
 }
 
 th, td {
     padding: 5px 10px;
+    text-align: left;
 }
+
+th {
+    background-color: #5FABFC;
+    font-size: 18px;
+}
+
+td {
+    background-color: #8ac1fc;
+}
+
+
 
 table {
     border-spacing: 5px;
+    width: 100%;
+}
+
+.table {
+    display: flex;
+    justify-content: center;
+    padding: 15px;
+    border-radius: 10px;
+    background-color: #03103A;
+    width: 90%;
 }

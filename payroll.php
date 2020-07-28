@@ -101,8 +101,7 @@
             Pulsa "Agregar Departamento"
         </h2> -->
 
-        <div class="container">
-
+        <div class="table">
             <table>
                 <tr>
                     <th>N</th>
@@ -116,7 +115,6 @@
                     echo $tbody;
                 ?>
             </table>
-
         </div>
 
     </main>
