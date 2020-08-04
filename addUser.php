@@ -11,21 +11,12 @@
         
         if(
             isset($_POST['name']) && 
-            isset($_POST['rif_l']) && 
-            isset($_POST['rif_n']) && 
-            isset($_POST['dir']) && 
-            isset($_POST['phone']) && 
-            isset($_POST['risk'])
+            isset($_POST['pass'])
         ){
             $name = $_POST['name']; 
-            $rif_l = $_POST['rif_l']; 
-            $rif_n = $_POST['rif_n']; 
-            $rif = $rif_l . "-" . $rif_n;
-            $dir = $_POST['dir']; 
-            $phone = $_POST['phone']; 
-            $risk = $_POST['risk'];
+            $pass = $_POST['pass'];
 
-            $query = "INSERT INTO enterprise(name, rif, dir, phone, risk ) VALUES ('$name','$rif','$dir','$phone',$risk)";
+            $query = "INSERT INTO users(name, pass) VALUES ('$name','$pass')";
 
             $result = $conn->query($query);
 
@@ -34,7 +25,7 @@
                 $insert_id = $conn->insert_id;
             }else{
                 if(mysqli_errno($conn) == 1062){
-                    $errormsg = "YA EXISTE UNA EMPRESA CON ESE NOMBRE O RIF";
+                    $errormsg = "YA EXISTE UN USUARIO CON ESE NOMBRE";
                 }else{
                     $errormsg = "HA OCURRIDO UN ERROR INESPERADO";
                 }
@@ -53,7 +44,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Añadir Empresa</title>
+    <title>Agregar Usuario</title>
     <link rel="icon" type="image/png" href="img/icon.png">
     <!-- {{!-- Google fonts Roboto --}} -->
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
@@ -81,83 +72,57 @@
                     </div>
                     
                 </div>
-                <div class="nav_buttons options">
-                    <a href="admin.php" class="icon_link active building"><i class="fas fa-building active"></i><span class="icon_text active">Empresas</span></a>
-                    <a href="users.php" class="icon_link building"><i class="fas fa-user"></i><span class="icon_text">Usuarios</span></a>
+                <div class="menu-center">
+                    <div class="nav_buttons options">
+                        <a href="admin.php" class="icon_link building"><i class="fas fa-building"></i><span class="icon_text">Empresas</span></a>
+                    </div>
+                    <div class="nav_buttons options">
+                        <a href="users.php" class="icon_link building active"><i class="fas fa-building active"></i><span class="icon_text active">Usuarios</span></a>
+                    </div>
                 </div>
+
                 <div class="logout_button nav_buttons">
-                    <a href="logout.php" class="icon_link"><i class="fas fa-door-open"></i><span class="icon_text">Salir</span></a>
+                    <a href="/index.php" class="icon_link"><i class="fas fa-door-open"></i><span class="icon_text">Salir</span></a>
+                    
                 </div>
             </div>
         </nav>
         <div class="alternative-menu" id="alternative-menu">
             <a href="admin.php" class="menu_link"><i class="fas fa-building"></i><span class="icon_text_alternative">Empresas</span></a>
-            <a href="users.php" class="menu_link"><i class="fas fa-user"></i><span class="icon_text_alternative">Usuarios</span></a>
+            <a href="users.php" class="menu_link"><i class="fas fa-building"></i><span class="icon_text_alternative">Usuarios</span></a>
         </div>
     </div>
 
     <header class="header">
         <div class="container">
-            <h2>Agregar Empresa</h2>
+            <h2>Agregar Usuario</h2>
         </div>
     </header>
 
     <main class="main">
         <div class="container">
 
-            <form class="form" method="POST" action="addEnterprise.php">
+            <form class="form" method="POST" action="addUser.php">
                
                 <div class="form_section section_form">
                     <div class="form_group">
-                        <label for="" class="form_group_label">
+                        <label for="name" class="form_group_label">
                             Nombre
                         </label>
-                        <input id="title" type="text" name="name" value=""/>
+                        <input id="name" type="text" name="name" value=""/>
                     </div>
                     <div class="form_group">
-                        <label for="" class="form_group_label">
-                            Dirección
+                        <label for="pass" class="form_group_label">
+                            Contraseña
                         </label>
-                        <input id="title" type="text" name="dir" value=""/>
-                    </div>
-
-                    <div class="form_group section_form">
-                        <label for="" class="form_group_label">
-                            Rif
-                        </label>
-                        <div class="rif">
-                            <select name="rif_l" id="riesgo">
-                                <option value="V">V</option>
-                                <option value="E">E</option>
-                                <option value="P">P</option>
-                                <option value="J">J</option>
-                                <option value="G">G</option>
-                            </select>
-                            <input id="detailPrice" type="number" name="rif_n" value=""/>
-                        </div>
-                    </div>
-                    <div class="form_group">
-                        <label for="" class="form_group_label">
-                            Teléfono
-                        </label>
-                        <input id="bigPrice" type="number" name="phone" value=""/>
-                    </div>
-                    <div class="form_group">
-                        <label for="riesgo" class="form_group_label">
-                            Porcentaje de riesgo
-                        </label>
-                        <select name="risk" id="riesgo">
-                            <option value="0.09">9%</option>
-                            <option value="0.10">10%</option>
-                            <option value="0.11">11%</option>
-                        </select>
+                        <input id="pass" type="text" name="pass" value=""/>
                     </div>
                 </div>
                 
                 <div class="button_group form_section">
 
                     <input type="submit" value="Agregar" class="button button_add" name="add" />
-                    <a href="admin.php" class="button button_back">Volver</a>
+                    <a href="users.php" class="button button_back">Volver</a>
                 </div>
             </form>
         </div>
@@ -168,9 +133,9 @@
             <div class="portal">
                 <div class="portal_box">
                     <p class="portal_box_title">
-                        Empresa creada satisfactoriamente
+                        Usuario creado satisfactoriamente
                     </p>
-                    <a href="departments.php?enterprise=<?php echo $insert_id ?>" class="portal_box_btn">Aceptar</a>
+                    <a href="users.php" class="portal_box_btn">Aceptar</a>
                 </div>
             </div>
     <?php }else if($error){ ?>

@@ -59,6 +59,9 @@ if (isset($_GET['enterprise'])) {
                     <div class="nav_buttons options">
                         <a href="payroll.php?enterprise=<?php echo $_SESSION['enterprise'] ?>" class="icon_link"><i class="fas fa-money-check-alt"></i><span class="icon_text">Nómina</span></a>
                     </div>
+                    <div class="nav_buttons options">
+                    <a href="users.php" class="icon_link building"><i class="fas fa-user"></i><span class="icon_text">Usuarios</span></a>
+                    </div>
                 </div>
 
                 <div class="logout_button nav_buttons">
@@ -71,6 +74,7 @@ if (isset($_GET['enterprise'])) {
             <a href="departments.php?enterprise=<?php echo $_SESSION['enterprise'] ?>" class="menu_link"><i class="fas fa-sitemap"></i> <span class="icon_text_alternative">Departamentos</span></a>
             <a href="concepts.php?enterprise=<?php echo $_SESSION['enterprise'] ?>" class="menu_link"><i class="fas fa-money-check"></i><span class="icon_text_alternative">Conceptos De Pago</span></a>
             <a href="payroll.php?enterprise=<?php echo $_SESSION['enterprise'] ?>" class="menu_link"><i class="fas fa-money-check-alt"></i><span class="icon_text_alternative">Nómina</span></a>
+            <a href="users.php" class="menu_link"><i class="fas fa-user"></i><span class="icon_text_alternative">Usuarios</span></a>
         </div>
     </div>
 
@@ -96,7 +100,7 @@ if (isset($_GET['enterprise'])) {
                 if ($result->num_rows > 0) {
                     // output data of each row
                     while ($row = $result->fetch_assoc()) { ?>
-                        <li class="product" onclick="location.href='editconcept.php?concept=<?php echo $row['id'] ?>'">
+                        <li class="product" onclick="location.href='editConcept.php?concept=<?php echo $row['id'] ?>'">
                             <div class="product_imgbox">
                                 <i class="product_imgbox_img fas fa-money-check"></i>
                             </div>
