@@ -10,9 +10,9 @@
     $id = "";
     $row = "";
 
-    if (isset($_GET['department'])) {
-        $id = $_GET['department'];
-        $query = "SELECT * FROM department WHERE id = $id";
+    if (isset($_GET['user'])) {
+        $id = $_GET['user'];
+        $query = "SELECT * FROM users WHERE id = $id";
         $result = $conn->query($query);
 
         if ($result) {
@@ -24,24 +24,27 @@
     if (isset($_POST['add'])) {
 
         if (
-            isset($_POST['name'])
+            isset($_POST['name']) && 
+             isset($_POST['pass'])
         ) {
             $name = $_POST['name']; 
+            $pass = $_POST['pass'];
     
-            $query = "UPDATE department set name = '$name' WHERE id = $id;";
+            $query = "UPDATE users set name = '$name', pass = '$pass' WHERE id = $id;";
     
             $result = $conn->query($query);
     
             if ($result) {
                 $created = true;
-                $query = "SELECT * FROM department where id = $id";
-            $result = $conn->query($query);
-            if ($result) {
-                $row = $result->fetch_assoc();
-            }
+                $query = "SELECT * FROM users WHERE id = $id";
+                $result = $conn->query($query);
+
+                if ($result) {
+                    $row = $result->fetch_assoc();
+                }
             } else {
                 if (mysqli_errno($conn) == 1062) {
-                    $errormsg = "YA EXISTE UN DEPARTAMENTO CON ESE NOMBRE";
+                    $errormsg = "YA EXISTE UN USUARIO CON ESE NOMBRE";
                 } else {
                     $errormsg = "HA OCURRIDO UN ERROR INESPERADO " . mysqli_errno($conn);
                 }
@@ -58,7 +61,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Editar Departamento</title>
+    <title>Editar Usuario</title>
     <link rel="icon" type="image/png" href="img/icon.png">
     <!-- {{!-- Google fonts Roboto --}} -->
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
@@ -77,7 +80,7 @@
 
 <body>
     <div class="nav_container">
-    <nav class="nav" id="menuNormal">
+        <nav class="nav" id="menuNormal">
             <div class="container">
                 <div class="main_nav_buttons">
                     <div class="menu_icon nav_buttons" id="menu_button">
@@ -86,75 +89,70 @@
                     </div>
                     
                 </div>
-
                 <div class="menu-center">
                     <div class="nav_buttons options">
                         <a href="admin.php" class="icon_link building"><i class="fas fa-building"></i><span class="icon_text">Empresas</span></a>
                     </div>
                     <div class="nav_buttons options">
-                        <a href="departments.php?enterprise=<?php echo $_SESSION['enterprise'] ?>" class="icon_link active"><i class="fas fa-sitemap active"></i><span class="icon_text active">Departamentos</span></a>
-                    </div>
-                    <div class="nav_buttons options">
-                        <a href="concepts.php?enterprise=<?php echo $_SESSION['enterprise'] ?>" class="icon_link"><i class="fas fa-money-check"></i><span class="icon_text">Conceptos De Pago</span></a>
-                    </div>
-                    <div class="nav_buttons options">
-                        <a href="payroll.php?enterprise=<?php echo $_SESSION['enterprise'] ?>" class="icon_link"><i class="fas fa-money-check-alt"></i><span class="icon_text">Nómina</span></a>
-                    </div>
-                    <div class="nav_buttons options">
-                        <a href="users.php" class="icon_link building"><i class="fas fa-user"></i><span class="icon_text">Usuarios</span></a>
+                        <a href="users.php" class="icon_link building active"><i class="fas fa-building active"></i><span class="icon_text active">Usuarios</span></a>
                     </div>
                 </div>
 
                 <div class="logout_button nav_buttons">
                     <a href="/index.php" class="icon_link"><i class="fas fa-door-open"></i><span class="icon_text">Salir</span></a>
+                    
                 </div>
             </div>
         </nav>
         <div class="alternative-menu" id="alternative-menu">
             <a href="admin.php" class="menu_link"><i class="fas fa-building"></i><span class="icon_text_alternative">Empresas</span></a>
-            <a href="departments.php?enterprise=<?php echo $_SESSION['enterprise'] ?>" class="menu_link"><i class="fas fa-sitemap"></i> <span class="icon_text_alternative">Departamentos</span></a>
-            <a href="concepts.php?enterprise=<?php echo $_SESSION['enterprise'] ?>" class="menu_link"><i class="fas fa-money-check"></i><span class="icon_text_alternative">Conceptos De Pago</span></a>
-            <a href="payroll.php?enterprise=<?php echo $_SESSION['enterprise'] ?>" class="menu_link"><i class="fas fa-money-check-alt"></i><span class="icon_text_alternative">Nómina</span></a>
-            <a href="users.php" class="menu_link"><i class="fas fa-user"></i><span class="icon_text_alternative">Usuarios</span></a>
+            <a href="users.php" class="menu_link"><i class="fas fa-building"></i><span class="icon_text_alternative">Usuarios</span></a>
         </div>
     </div>
 
     <header class="header">
         <div class="container">
-            <h2>Editar Departamento</h2>
+            <h2>Editar Usuario</h2>
         </div>
     </header>
 
     <main class="main">
         <div class="container">
 
-            <form class="form" method="POST" action="editDepartment.php?department=<?php echo $id ?>">
+            <form class="form" method="POST" action="editUser.php?user=<?php echo $id ?>">
                
                 <div class="form_section section_form">
                     <div class="form_group">
-                        <label for="" class="form_group_label">
+                        <label for="name" class="form_group_label">
                             Nombre
                         </label>
                         <input id="name" type="text" name="name" value="<?php echo $row['name'] ?>"/>
+                    </div>
+                    <div class="form_group">
+                        <label for="pass" class="form_group_label">
+                            Contraseña
+                        </label>
+                        <input id="pass" type="text" name="pass" value="<?php echo $row['pass'] ?>"/>
                     </div>
                 </div>
                 
                 <div class="button_group button_group_update form_section">
                     <input type="submit" name="add" value="Editar" class="button button_add" />
-                    <a href="departments.php?enterprise=<?php echo $_SESSION['enterprise'] ?>" class="button button_back">Volver</a>
-                    <a href="deleteDepartment.php?department=<?php echo $id ?>" class="button button_delete">Eliminar</a>
+                    <a href="users.php" class="button button_back">Volver</a>
+                    <a href="deleteUser.php?user=<?php echo $id ?>" class="button button_delete">Eliminar</a>
                 </div>
             </form>
         </div>
     </main>
+
     <?php 
         if($created){ ?>
             <div class="portal">
                 <div class="portal_box">
                     <p class="portal_box_title">
-                        Departamento modificado satisfactoriamente
+                        Usuario modificado satisfactoriamente
                     </p>
-                    <a href="departments.php?enterprise=<?php echo $_SESSION['enterprise'] ?>" class="portal_box_btn">Aceptar</a>
+                    <a href="users.php" class="portal_box_btn">Aceptar</a>
                 </div>
             </div>
     <?php }else if($error){ ?>

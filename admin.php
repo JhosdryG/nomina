@@ -40,6 +40,7 @@ $result = $conn->query($query);
                 </div>
                 <div class="nav_buttons options">
                     <a href="admin.php" class="icon_link active building"><i class="fas fa-building active"></i><span class="icon_text active">Empresas</span></a>
+                    <a href="users.php" class="icon_link building"><i class="fas fa-user"></i><span class="icon_text">Usuarios</span></a>
                 </div>
                 <div class="logout_button nav_buttons">
                     <a href="logout.php" class="icon_link"><i class="fas fa-door-open"></i><span class="icon_text">Salir</span></a>
@@ -48,6 +49,7 @@ $result = $conn->query($query);
         </nav>
         <div class="alternative-menu" id="alternative-menu">
             <a href="admin.php" class="menu_link"><i class="fas fa-building"></i><span class="icon_text_alternative">Empresas</span></a>
+            <a href="users.php" class="menu_link"><i class="fas fa-user"></i><span class="icon_text_alternative">Usuarios</span></a>
         </div>
     </div>
 
