@@ -44,7 +44,7 @@
       FROM employees 
       INNER JOIN department ON employees.department_id = department.id
       INNER JOIN enterprise ON department.enterprise_id = enterprise.id
-      INNER JOIN job ON employees.job_id = job.id WHERE enterprise.id = $enterprise";
+      INNER JOIN job ON employees.job_id = job.id WHERE enterprise.id = $enterprise AND employees.vacation = 0 AND employees.hiredate <= '$initial'";
     
       $result = $conn->query($query);
 
