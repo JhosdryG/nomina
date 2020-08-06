@@ -14,11 +14,15 @@ if(isset($_POST["login"])){
 
     $query = "SELECT *  FROM users WHERE users.name = '$user' AND users.pass = '$pass'";
 
-    $userExist = $conn->query($query) or die('Error: ' . mysqli_error($conn));
-    $userExist = $userExist -> num_rows > 0;
+    $user = $conn->query($query) or die('Error: ' . mysqli_error($conn));
+    $userExist = $user -> num_rows > 0;
+
 
     if($userExist){
         $_SESSION["logged"] = true;
+        $_SESSION["admin"] = $user->fetch_assoc()['admin'];
+         
+
         header("Location: admin.php");
     }else{
         $error = "Clave o contraseña invalida";

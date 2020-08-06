@@ -62,28 +62,57 @@
                     <div class="nav_buttons options">
                         <a href="departments.php?enterprise=<?php echo $_SESSION['enterprise'] ?>" class="icon_link active"><i class="fas fa-sitemap active"></i><span class="icon_text active">Departamentos</span></a>
                     </div>
+                    <?php 
+                if($_SESSION['admin']){?>
+
                     <div class="nav_buttons options">
                         <a href="concepts.php?enterprise=<?php echo $_SESSION['enterprise'] ?>" class="icon_link"><i class="fas fa-money-check"></i><span class="icon_text">Conceptos De Pago</span></a>
                     </div>
+            <?php } ?>
+
+                    
                     <div class="nav_buttons options">
                         <a href="payroll.php?enterprise=<?php echo $_SESSION['enterprise'] ?>" class="icon_link"><i class="fas fa-money-check-alt"></i><span class="icon_text">Nómina</span></a>
                     </div>
+
+
+                    <?php 
+                if($_SESSION['admin']){?>
+
                     <div class="nav_buttons options">
                         <a href="users.php" class="icon_link building"><i class="fas fa-user"></i><span class="icon_text">Usuarios</span></a>
                     </div>
+            <?php } ?>
+
+
                 </div>
 
                 <div class="logout_button nav_buttons">
-                    <a href="/index.php" class="icon_link"><i class="fas fa-door-open"></i><span class="icon_text">Salir</span></a>
+                    <a href="logout.php" class="icon_link"><i class="fas fa-door-open"></i><span class="icon_text">Salir</span></a>
                 </div>
             </div>
         </nav>
         <div class="alternative-menu" id="alternative-menu">
             <a href="admin.php" class="menu_link"><i class="fas fa-building"></i><span class="icon_text_alternative">Empresas</span></a>
             <a href="departments.php?enterprise=<?php echo $_SESSION['enterprise'] ?>" class="menu_link"><i class="fas fa-sitemap"></i> <span class="icon_text_alternative">Departamentos</span></a>
-            <a href="concepts.php?enterprise=<?php echo $_SESSION['enterprise'] ?>" class="menu_link"><i class="fas fa-money-check"></i><span class="icon_text_alternative">Conceptos De Pago</span></a>
+
+            <?php 
+                if($_SESSION['admin']){?>
+
+                    <a href="concepts.php?enterprise=<?php echo $_SESSION['enterprise'] ?>" class="menu_link"><i class="fas fa-money-check"></i><span class="icon_text_alternative">Conceptos De Pago</span></a>
+            <?php } ?>
+
+            
+
             <a href="payroll.php?enterprise=<?php echo $_SESSION['enterprise'] ?>" class="menu_link"><i class="fas fa-money-check-alt"></i><span class="icon_text_alternative">Nómina</span></a>
-            <a href="users.php" class="menu_link"><i class="fas fa-user"></i><span class="icon_text_alternative">Usuarios</span></a>
+
+            <?php 
+                if($_SESSION['admin']){?>
+
+                <a href="users.php" class="menu_link"><i class="fas fa-user"></i><span class="icon_text_alternative">Usuarios</span></a>
+            <?php } ?>
+            
+            <a href="logout.php" class="menu_link"><i class="fas fa-door-open"></i><span class="icon_text_alternative">Salir</span></a>
         </div>
     </div>
 
@@ -93,7 +122,11 @@
                 <h2 class="enterprise"><?php echo $enterpriseName ?></h1>
                     <h2 class="department">Departamentos</h2>
             </div>
-            <a id="addProduct" href="addDepartment.php"><i class="fas fa-plus"></i> Agregar Departamento</a>
+            <?php 
+                if($_SESSION['admin']){?>
+
+                    <a id="addProduct" href="addDepartment.php"><i class="fas fa-plus"></i> Agregar Departamento</a>
+            <?php } ?>
         </div>
     </header>
 
@@ -112,9 +145,16 @@
                     // output data of each row
                     while($row = $result->fetch_assoc()) { ?>
                         <li class="product" onclick="location.href='jobs.php?department=<?php echo $row['id'] ?>'">
+
+                        <?php 
+                            if($_SESSION['admin']){?>
+
                             <div class="product_edit_iconbox">
                                 <a href="editDepartment.php?department=<?php echo $row['id'] ?>"><i class="product_edit_iconbox_icon fas fa-pen"></i></a>
                             </div>
+                        <?php } ?>
+
+
                             <div class="product_imgbox">
                             <i class="product_imgbox_img fas fa-sitemap"></i>
                             </div>

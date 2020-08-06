@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 28-07-2020 a las 12:26:26
+-- Tiempo de generación: 06-08-2020 a las 22:51:02
 -- Versión del servidor: 10.4.6-MariaDB
 -- Versión de PHP: 7.3.9
 
@@ -57,6 +57,13 @@ CREATE TABLE `department` (
   `enterprise_id` int(10) UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Volcado de datos para la tabla `department`
+--
+
+INSERT INTO `department` (`id`, `name`, `enterprise_id`) VALUES
+(6, 'ProgramaciÃ³n', 4);
+
 -- --------------------------------------------------------
 
 --
@@ -73,6 +80,13 @@ CREATE TABLE `employees` (
   `department_id` int(11) NOT NULL,
   `job_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Volcado de datos para la tabla `employees`
+--
+
+INSERT INTO `employees` (`id`, `name`, `dni`, `birthdate`, `hiredate`, `vacation`, `department_id`, `job_id`) VALUES
+(13, 'Jhoseph Guerrero', '26773668', '1999-08-01', '2020-08-01', 0, 6, 9);
 
 -- --------------------------------------------------------
 
@@ -116,6 +130,13 @@ CREATE TABLE `job` (
   `department_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Volcado de datos para la tabla `job`
+--
+
+INSERT INTO `job` (`id`, `name`, `weekhours`, `price_hour`, `department_id`) VALUES
+(9, 'Programador', 45, '10000.00', 6);
+
 -- --------------------------------------------------------
 
 --
@@ -138,7 +159,12 @@ CREATE TABLE `regnomina` (
 
 INSERT INTO `regnomina` (`id`, `initial`, `final`, `base`, `concepts`, `total`, `id_enterprise`) VALUES
 (1, '2020-07-16', '2020-07-24', 6942855.60, 7637141.16, '14579996.76', 4),
-(2, '2020-07-10', '2020-07-04', 5399998.80, 5939998.68, '11339997.48', 4);
+(2, '2020-07-10', '2020-07-04', 5399998.80, 5939998.68, '11339997.48', 4),
+(3, '2020-08-01', '2020-08-05', 321428.50, 353571.35, '674999.85', 4),
+(4, '2020-07-27', '2020-07-31', 321428.50, 353571.35, '674999.85', 4),
+(5, '2020-08-01', '2020-08-07', 449999.90, 494999.89, '944999.79', 4),
+(6, '2020-08-01', '2020-08-13', 835714.10, 919285.51, '1754999.61', 4),
+(7, '2020-08-13', '2020-08-29', 1092856.90, 1202142.59, '2294999.49', 4);
 
 -- --------------------------------------------------------
 
@@ -150,8 +176,6 @@ CREATE TABLE `users` (
   `id` int(11) NOT NULL,
   `name` varchar(45) NOT NULL,
   `pass` varchar(45) NOT NULL,
-  `question` varchar(45) NOT NULL,
-  `answer` varchar(45) NOT NULL,
   `admin` tinyint(4) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -159,8 +183,9 @@ CREATE TABLE `users` (
 -- Volcado de datos para la tabla `users`
 --
 
-INSERT INTO `users` (`id`, `name`, `pass`, `question`, `answer`, `admin`) VALUES
-(1, 'admin', 'admin123', 'Carrera de urbe', 'informatica', 1);
+INSERT INTO `users` (`id`, `name`, `pass`, `admin`) VALUES
+(1, 'admin', 'admin123', 1),
+(2, 'Jhosseph', '123456', 0);
 
 --
 -- Índices para tablas volcadas
@@ -236,13 +261,13 @@ ALTER TABLE `concepts`
 -- AUTO_INCREMENT de la tabla `department`
 --
 ALTER TABLE `department`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT de la tabla `employees`
 --
 ALTER TABLE `employees`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT de la tabla `enterprise`
@@ -254,19 +279,19 @@ ALTER TABLE `enterprise`
 -- AUTO_INCREMENT de la tabla `job`
 --
 ALTER TABLE `job`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT de la tabla `regnomina`
 --
 ALTER TABLE `regnomina`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT de la tabla `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- Restricciones para tablas volcadas

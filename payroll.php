@@ -63,27 +63,69 @@
                     <div class="nav_buttons options">
                         <a href="admin.php" class="icon_link building"><i class="fas fa-building"></i><span class="icon_text">Empresas</span></a>
                     </div>
+
+                    <?php 
+                if($_SESSION['admin']){?>
+
                     <div class="nav_buttons options">
                         <a href="departments.php?enterprise=<?php echo $_SESSION['enterprise'] ?>" class="icon_link"><i class="fas fa-sitemap"></i><span class="icon_text">Departamentos</span></a>
                     </div>
-                    <div class="nav_buttons options">
-                        <a href="concepts.php?enterprise=<?php echo $_SESSION['enterprise'] ?>" class="icon_link"><i class="fas fa-money-check "></i><span class="icon_text">Conceptos De Pago</span></a>
-                    </div>
+                <?php } ?>
+
+                    
+
+                    <?php 
+                        if($_SESSION['admin']){?>
+
+                            <div class="nav_buttons options">
+                                <a href="concepts.php?enterprise=<?php echo $_SESSION['enterprise'] ?>" class="icon_link"><i class="fas fa-money-check "></i><span class="icon_text">Conceptos De Pago</span></a>
+                            </div>
+                    <?php } ?>
+
+
                     <div class="nav_buttons options">
                         <a href="payroll.php?enterprise=<?php echo $_SESSION['enterprise'] ?>" class="icon_link active"><i class="fas fa-money-check-alt active"></i><span class="icon_text active">Nómina</span></a>
                     </div>
                 </div>
+                <?php 
+                if($_SESSION['admin']){?>
+
+                    <div class="nav_buttons options">
+                        <a href="users.php" class="icon_link building"><i class="fas fa-user"></i><span class="icon_text">Usuarios</span></a>
+                    </div>
+                <?php } ?>
 
                 <div class="logout_button nav_buttons">
-                    <a href="/index.php" class="icon_link"><i class="fas fa-door-open"></i><span class="icon_text">Salir</span></a>
+                    <a href="logout.php" class="icon_link"><i class="fas fa-door-open"></i><span class="icon_text">Salir</span></a>
                 </div>
             </div>
         </nav>
         <div class="alternative-menu" id="alternative-menu">
             <a href="admin.php" class="menu_link"><i class="fas fa-building"></i><span class="icon_text_alternative">Empresas</span></a>
-            <a href="departments.php?enterprise=<?php echo $_SESSION['enterprise'] ?>" class="menu_link"><i class="fas fa-sitemap"></i> <span class="icon_text_alternative">Departamentos</span></a>
-            <a href="concepts.php?enterprise=<?php echo $_SESSION['enterprise'] ?>" class="menu_link"><i class="fas fa-money-check"></i><span class="icon_text_alternative">Conceptos De Pago</span></a>
+
+            <?php 
+                if($_SESSION['admin']){?>
+
+                    <a href="departments.php?enterprise=<?php echo $_SESSION['enterprise'] ?>" class="menu_link"><i class="fas fa-sitemap"></i> <span class="icon_text_alternative">Departamentos</span></a>
+            <?php } ?>
+
+            
+
+            <?php 
+                if($_SESSION['admin']){?>
+
+                    <a href="concepts.php?enterprise=<?php echo $_SESSION['enterprise'] ?>" class="menu_link"><i class="fas fa-money-check"></i><span class="icon_text_alternative">Conceptos De Pago</span></a>
+            <?php } ?>
+
             <a href="payroll.php?enterprise=<?php echo $_SESSION['enterprise'] ?>" class="menu_link"><i class="fas fa-money-check-alt"></i><span class="icon_text_alternative">Nómina</span></a>
+
+            <?php 
+                if($_SESSION['admin']){?>
+
+                <a href="users.php" class="menu_link"><i class="fas fa-user"></i><span class="icon_text_alternative">Usuarios</span></a>
+            <?php } ?>
+
+            <a href="logout.php" class="menu_link"><i class="fas fa-door-open"></i><span class="icon_text_alternative">Salir</span></a>
         </div>
     </div>
 

@@ -75,7 +75,8 @@
     <link rel="stylesheet" href="css/add_product.min.css">
     <link rel="stylesheet" href="css/msgportal.min.css">
 
-</body>
+
+
 </head>
 
 <body>
@@ -94,19 +95,20 @@
                         <a href="admin.php" class="icon_link building"><i class="fas fa-building"></i><span class="icon_text">Empresas</span></a>
                     </div>
                     <div class="nav_buttons options">
-                        <a href="users.php" class="icon_link building active"><i class="fas fa-building active"></i><span class="icon_text active">Usuarios</span></a>
+                        <a href="users.php" class="icon_link building active"><i class="fas fa-user"></i><span class="icon_text active">Usuarios</span></a>
                     </div>
                 </div>
 
                 <div class="logout_button nav_buttons">
-                    <a href="/index.php" class="icon_link"><i class="fas fa-door-open"></i><span class="icon_text">Salir</span></a>
+                    <a href="logout.php" class="icon_link"><i class="fas fa-door-open"></i><span class="icon_text">Salir</span></a>
                     
                 </div>
             </div>
         </nav>
         <div class="alternative-menu" id="alternative-menu">
             <a href="admin.php" class="menu_link"><i class="fas fa-building"></i><span class="icon_text_alternative">Empresas</span></a>
-            <a href="users.php" class="menu_link"><i class="fas fa-building"></i><span class="icon_text_alternative">Usuarios</span></a>
+            <a href="users.php" class="menu_link"><i class="fas fa-user"></i><span class="icon_text_alternative">Usuarios</span></a>
+            <a href="logout.php" class="menu_link"><i class="fas fa-door-open"></i><span class="icon_text_alternative">Salir</span></a>
         </div>
     </div>
 

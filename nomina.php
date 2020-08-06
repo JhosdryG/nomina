@@ -136,8 +136,23 @@
     <title>Nómina</title>
     <link rel="icon" type="image/png" href="img/icon.png">
     <link rel="stylesheet" href="css/nomina.css">
+    <style>
+        .btn{
+            display: inline-block;
+            margin: 10px 0;
+            padding: 6px 15px;
+            width: 100%;
+            font-size: 1.1rem;
+            text-align: center;
+            color: lightblue;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+    </style>
 </head>
 <body>
+    <a href="payroll.php?enterprise=<?php echo $enterprise ?>" class="btn">Volver</a>
     <table> 
       <?php 
         echo $thead;
